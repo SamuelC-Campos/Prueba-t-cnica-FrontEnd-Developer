@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { TrainerProfileSetupComponent } from './trainer-profile-setup/trainer-profile-setup';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [ TrainerProfileSetupComponent ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -1,0 +1,377 @@
+/* Base styles / Resets for consistency */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Roboto;
+    /* Important for min-height: 100vh on main container */
+}
+
+* {
+    box-sizing: border-box;
+    /* Ensures padding and border are included in element's total width and height */
+}
+
+/* Page Block - Contenedor principal de toda la página */
+.page-trainer-profile-setup {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Ocupa el 100% de la altura de la ventana */
+    background-color: var(--color-bg-light);
+    font-family: 'Roboto', sans-serif;
+    /* Asegúrate de que esta fuente esté importada en index.html */
+    color: var(--color-text-dark);
+}
+
+/* Main Header Block */
+.main-header {
+    padding: 20px 40px;
+    /* Padding a los lados */
+    background-color: var(--color-white);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* Sombra suave */
+    display: flex;
+    justify-content: center;
+    /* Centra el contenido del header */
+}
+
+.main-header__container {
+    max-width: 1200px;
+    /* Ancho máximo, coherente con el contenido principal */
+    width: 100%;
+}
+
+.main-header__logo {
+    height: 40px;
+    /* Tamaño del logo */
+    display: block;
+    /* Para evitar espacios extra bajo la imagen */
+}
+
+/* Profile Content Block - Área de contenido principal */
+.profile-content {
+    flex-grow: 1;
+    /* Permite que ocupe el espacio vertical restante */
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    /* Padding general alrededor del contenido */
+    max-width: 1200px;
+    /* Ancho máximo para el contenido */
+    margin: 0 auto;
+    /* Centrar el contenido horizontalmente */
+    width: 100%;
+    /* Asegura que use todo el ancho disponible hasta el max-width */
+}
+
+/* Intro Section Block - Sección "¡Hola! Configuremos tu perfil" */
+.intro-section {
+    margin-bottom: 30px;
+}
+
+.intro-section__back-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.intro-section__back-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--color-text-medium);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    /* Espacio entre el ícono y el texto, si lo hubiera */
+    font-size: 16px;
+    /* Tamaño de fuente para el botón */
+}
+
+.intro-section__back-icon {
+    font-size: 20px;
+    /* Tamaño del ícono de flecha */
+}
+
+.intro-section__text {
+    margin-left: 10px;
+    /* Espacio entre el botón de regresar y el texto */
+}
+
+.intro-section__title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--color-text-blue);
+}
+
+.intro-section__subtitle {
+    font-size: 18px;
+    color: var(--color-text-medium);
+    margin: 0;
+    /* Elimina márgenes por defecto de p */
+}
+
+/* Form Sections Wrapper Block - Contiene las dos columnas (imagen y formulario) */
+.form-sections-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+
+/* Image Upload Block */
+.image-upload-block {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+}
+
+.image-upload-block__card {
+    background-color: var(--color-primary-yellow);
+    border-radius: 50px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: 100%;
+    color: var(--color-white);
+}
+
+.image-upload-block__title {
+    font-size: 28px;
+    font-weight: 700;
+    /* margin-bottom: 30px; */
+    color: var(--color-text-dark);
+}
+
+.image-upload-block__placeholder {
+    width: 250px;
+    height: 250px;
+    background-color: var(--color-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    /* ¡Importante! Recorta la imagen para que no se salga del círculo */
+    position: relative;
+    /* Necesario para posicionar la imagen subida si es absoluto */
+
+}
+
+.image-upload-block__uploaded-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Asegura que la imagen cubra todo el espacio sin distorsionarse */
+  border-radius: 50%; /* Le da forma circular a la imagen */
+  position: absolute; /* Para que se superponga al icono */
+  top: 0;
+  left: 0;
+}
+
+.image-upload-block__icon {
+    font-size: 250px;
+    color: #ccc;
+    z-index: 1;
+}
+
+.image-upload-block__upload-button {
+    background-color: var(--color-white);
+    color: var(--color-text-blue);
+    border: none;
+    border-radius: 5px;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Espacio entre texto y ícono de nube */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.image-upload-block__upload-button:hover {
+    background-color: #eee;
+}
+
+/* Info Form Block */
+.info-form-block {
+    flex: 2;
+    min-width: 450px;
+    display: flex;
+    justify-content: center;
+    height: auto;
+}
+
+.info-form-block__card {
+    background-color: var(--color-bg-light);
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+    height: 100%;
+    /* Asegura que ambas tarjetas en la fila tengan la misma altura */
+}
+
+.info-form-block__title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--color-text-blue);
+
+}
+
+.info-form-block__subtitle {
+    font-size: 16px;
+    color: var(--color-text-light);
+    margin-bottom: 30px;
+    margin-right: 50px;
+}
+
+.info-form-block__form-group {
+    margin-bottom: 20px;
+}
+
+.info-form-block__label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-text-medium);
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.info-form-block__input {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid var(--color-border-light);
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--color-text-dark);
+    box-sizing: border-box;
+    font-weight: bold;
+    /* Asegura que el padding y el borde se incluyan en el ancho total */
+    transition: border-color 0.3s ease;
+}
+
+.info-form-block__input::placeholder {
+    color: #aaa;
+    /* Color del placeholder */
+}
+
+.info-form-block__input:focus {
+    border-color: var(--color-primary-yellow);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(253, 185, 0, 0.25);
+    /* Sombra de enfoque amarillo */
+}
+
+/* Estilo específico para el input de fecha (cumpleaños) */
+.info-form-block__input[type="date"] {
+    /* Algunas propiedades de apariencia para el input de fecha */
+    /* Puedes necesitar más hacks para personalizarlo completamente en todos los navegadores */
+    appearance: none;
+    /* Elimina estilos por defecto de algunos navegadores */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* Para el icono del calendario en el input date, el navegador lo renderiza.
+   Si necesitas un ícono personalizado, tendrías que usar un contenedor
+   con el input y un span con el ícono, posicionándolo absolutamente. */
+
+
+.info-form-block__continue-button {
+    background-color: var(--color-button-disabled-bg);
+    color: var(--color-button-disabled-text);
+    border: none;
+    border-radius: 8px;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: not-allowed;
+    align-items: center;
+    /* Como en la imagen */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 50%;
+    /* Ocupa todo el ancho */
+    display: block;
+    margin: 30px auto 0 auto;
+}
+
+
+/* Responsive adjustments - Media Queries */
+@media (max-width: 768px) {
+
+    .main-header,
+    .profile-content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .form-sections-wrapper {
+        flex-direction: column;
+        /* Apila las columnas en pantallas pequeñas */
+        gap: 30px;
+        /* Espacio entre las secciones apiladas */
+    }
+
+    .image-upload-block,
+    .info-form-block {
+        min-width: unset;
+        /* Elimina el ancho mínimo */
+        width: 100%;
+        /* Ocupa todo el ancho disponible */
+    }
+
+    .image-upload-block__card,
+    .info-form-block__card {
+        padding: 30px 20px;
+        /* Reduce padding en pantallas pequeñas */
+    }
+
+    .intro-section__title {
+        font-size: 26px;
+    }
+
+    .intro-section__subtitle {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-header {
+        padding: 15px 20px;
+    }
+
+    .main-header__logo {
+        height: 30px;
+    }
+
+    .profile-content {
+        padding: 15px;
+    }
+
+    .image-upload-block__title,
+    .info-form-block__title {
+        font-size: 24px;
+    }
+
+    .info-form-block__continue-button {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+}
