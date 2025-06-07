@@ -1,10 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-trainer-profile-setup',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './trainer-profile-setup.html',
   styleUrl: './trainer-profile-setup.css'
 })
@@ -13,6 +14,9 @@ export class TrainerProfileSetupComponent implements OnInit {
   selectedHobby: string = "";
   isHobbySelected: boolean = false;
 
+  nameValue: string = '';
+  documentValue: string = '';
+  birthdayValue: string = '';
 
   constructor() { }
   ngOnInit(): void {
@@ -34,9 +38,8 @@ export class TrainerProfileSetupComponent implements OnInit {
     }
   }
 
-  onHobbyChange(): void {
-    // Si selectedHobby tiene un valor (no es la opción vacía inicial), es verdadero
-    this.isHobbySelected = !!this.selectedHobby;
+ onHobbyChange(): void {
+    this.isHobbySelected = !!this.selectedHobby; // true si selectedHobby tiene un valor (no vacío)
   }
 
 }

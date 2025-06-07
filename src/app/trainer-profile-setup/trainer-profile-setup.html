@@ -45,23 +45,38 @@
                     </p>
 
                     <form class="info-form-block__form">
-                        <div class="info-form-block__form-group">
-                            <input type="text" id="name" name="name" class="info-form-block__input"
-                                placeholder="Nombre">
+                        <div class="info-form-block__form-group floating-label-group">
+                            <input type="text" id="name" name="name" class="info-form-block__input" placeholder=" "
+                                [(ngModel)]="nameValue" [attr.filled]="nameValue.length > 0 ? true : null">
+                            <label for="name" class="floating-label">Nombre</label>
                         </div>
 
-                        <div class="info-form-block__form-group">
-                            <input type="text" id="hobby" name="hobby" class="info-form-block__input"
-                                placeholder="Pasatiempo favorito">
+                        <div class="info-form-block__form-group floating-label-group">
+                            <select id="hobby" name="hobby" class="info-form-block__input" [(ngModel)]="selectedHobby"
+                                (change)="onHobbyChange()" [class.select-filled]="selectedHobby.length > 0">
+                                <option value="" disabled></option>
+                                <option value="JugarFutbol">Jugar Futbol</option>
+                                <option value="JugarBasquetball">Jugar Basquetball</option>
+                                <option value="JugarTennis">Jugar Tennis</option>
+                                <option value="JugarVoleibol">Jugar Voleibol</option>
+                                <option value="JugarFifa">Jugar Fifa</option>
+                                <option value="JugarVideoJuegos">Jugar VideoJuegos</option>
+                            </select>
+                            <label for="hobby" class="floating-label">Pasatiempo favorito</label>
                         </div>
 
-                        <div class="info-form-block__form-group">
-                            <input type="date" id="birthday" name="birthday" class="info-form-block__input">
+                        <div class="info-form-block__form-group floating-label-group">
+                            <input type="date" id="birthday" name="birthday" class="info-form-block__input"
+                                [(ngModel)]="birthdayValue" [class.empty]="!birthdayValue" />
+                            <label for="birthday" class="floating-label">Cumpleaños</label>
                         </div>
 
-                        <div class="info-form-block__form-group">
+
+                        <div class="info-form-block__form-group floating-label-group">
                             <input type="text" id="document" name="document" class="info-form-block__input"
-                                placeholder="Documento">
+                                placeholder=" " [(ngModel)]="documentValue"
+                                [attr.filled]="documentValue.length > 0 ? true : null">
+                            <label for="document" class="floating-label">Documento</label>
                         </div>
 
                         <button type="submit" class="info-form-block__continue-button" disabled>

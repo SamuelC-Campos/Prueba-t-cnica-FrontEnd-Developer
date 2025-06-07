@@ -243,7 +243,7 @@ body {
 }
 
 .info-form-block__form-group {
-    margin-bottom: 20px;
+    margin-bottom: 35px;
 }
 
 .info-form-block__label {
@@ -310,6 +310,94 @@ body {
     /* Ocupa todo el ancho */
     display: block;
     margin: 30px auto 0 auto;
+}
+
+/* --- INICIO DE ADICIONES PARA INPUTS FLOTANTES Y SELECT --- */
+
+/* Contenedor del input y el label flotante */
+.floating-label-group {
+  position: relative;
+  /* margin-bottom: 25px; /* Comenta o quita si ya tienes margin-bottom en .info-form-block__form-group */
+}
+
+/* Modificación de la regla existente .info-form-block__input */
+/* ¡IMPORTANTE! Busca tu regla existente para '.info-form-block__input' y actualiza el padding y añade outline: none; */
+/* Si tu regla existente tiene 'padding: 12px 10px;', debes cambiarla a la siguiente: */
+.info-form-block__input {
+  /* Mantén tus propiedades existentes como width, border, border-radius, font-size, color, box-sizing, font-weight, transition */
+  padding: 15px 12px 5px 12px; /* Ajuste crucial para dar espacio al label flotante */
+  outline: none; /* Elimina el contorno por defecto al enfocar */
+}
+
+/* Estilo para el label flotante */
+.floating-label {
+  position: absolute;
+  left: 12px; /* Misma posición horizontal que el padding del input */
+  top: 10px; /* Posición inicial vertical del label */
+  font-size: 16px;
+  color: var(--color-text-dark); /* Color inicial (como un placeholder) */
+  pointer-events: none; /* Permite hacer clic a través del label hacia el input */
+  transition: all 0.2s ease-out; /* Transición suave para el movimiento y tamaño */
+  font-weight: bold; /* El texto "Nombre", "Pasatiempo favorito", etc., en negrita */
+}
+
+.info-form-block__input:focus + .floating-label,
+.info-form-block__input:not(:placeholder-shown):not([type="date"]):not(select) + .floating-label, /* ¡ESTA ES LA LÍNEA MODIFICADA! */
+.info-form-block__input[filled] + .floating-label,
+.info-form-block__input.select-filled + .floating-label {
+  top: -10px; /* Mueve el label hacia arriba */
+  font-size: 12px; /* Reduce el tamaño del label */
+  color: var(--color-text-blue); /* Cambia el color cuando está activo/lleno */
+  background-color: var(--color-white); /* Para "cortar" el fondo y que el label se vea por encima */
+  padding: 0 4px; /* Pequeño padding alrededor del label movido */
+  left: 8px; /* Ligeramente más a la izquierda cuando se mueve arriba */
+}
+
+/* Estilos específicos para el <select> */
+.info-form-block__input[id="hobby"] {
+  -webkit-appearance: none; /* Elimina la flecha por defecto en Chrome/Safari */
+  -moz-appearance: none;    /* Elimina la flecha por defecto en Firefox */
+  appearance: none;         /* Elimina la flecha por defecto */
+  /* Icono de flecha SVG en base64 para reemplazar la flecha por defecto del navegador */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%23777"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center; /* Posiciona la flecha a la derecha */
+  padding-right: 35px; /* Deja espacio para la flecha */
+}
+
+/* Estilo para la primera opción "placeholder" del select */
+.info-form-block__input option[value=""][disabled] {
+  color: var(--color-text-light); /* Color similar al placeholder */
+  /* Puedes añadir 'display: none;' aquí si no quieres que esta opción aparezca en la lista desplegable una vez seleccionado un valor */
+}
+
+/* Solo cuando está vacío se oculta el valor de fecha */
+input[type="date"]#birthday.empty::-webkit-datetime-edit {
+  color: transparent;
+}
+
+/* Cuando se enfoca o tiene valor, se muestra */
+input[type="date"]#birthday:focus::-webkit-datetime-edit,
+input[type="date"]#birthday:not(.empty)::-webkit-datetime-edit {
+  color: inherit;
+}
+
+/* Que el label no se superponga si el input tiene valor o está en focus */
+#birthday:focus + .floating-label,
+#birthday:not(.empty) + .floating-label {
+  transform: translateY(-20px);
+  font-size: 12px;
+  color: var(--color-text-blue);
+}
+
+/* Posición inicial del label */
+#birthday + .floating-label {
+  position: absolute;
+  left: 12px;
+  top: 16px;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  color: var(--color-text-dark);
 }
 
 
