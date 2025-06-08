@@ -14,19 +14,25 @@
 
   <div class="main-content-wrapper">
     <aside class="trainer-profile-summary">
+      @if (trainerProfile) {
       <div class="profile-card">
-        <h3 class="profile-detail-name"><strong>{{ trainerProfile?.name }} </strong></h3>
+        <h3 class="profile-detail-name"><strong>{{ trainerProfile.name }} </strong></h3>
         <div class="profile-image-container">
-          @if (trainerProfile?.profileImageUrl) {
-          <img [src]="trainerProfile?.profileImageUrl" alt="Foto de Perfil" class="profile-image">
+          @if (trainerProfile.profileImageUrl) {
+          <img [src]="trainerProfile.profileImageUrl" alt="Foto de Perfil" class="profile-image">
           } @else {
           <span class="material-icons default-profile-icon">account_circle</span>
           }
         </div>
-        <p class="profile-detail"><strong>Pasatiempo:</strong> {{ trainerProfile?.hobby }}</p>
-        <p class="profile-detail"><strong>Edad:</strong> {{ trainerProfile?.age }} años</p>
-        <p class="profile-detail"><strong>Documento:</strong> {{ trainerProfile?.document }}</p>
+        <p class="profile-detail"><strong>Pasatiempo:</strong> {{ trainerProfile.hobby }}</p>
+        <p class="profile-detail"><strong>Edad:</strong> {{ trainerProfile.age }} años</p>
+        @if (trainerProfile.age >= 18){
+        <p class="profile-detail"><strong>Documento:</strong> {{ trainerProfile.document
+          }}</p> }
       </div>
+      } @else {
+      <p class="loading-text">Cargando perfil de entrenador...</p>
+      }
     </aside>
 
     <main class="pokemon-selection-main">

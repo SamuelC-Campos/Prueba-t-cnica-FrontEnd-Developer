@@ -13,15 +13,13 @@ body {
     /* Ensures padding and border are included in element's total width and height */
 }
 
-/* Page Block - Contenedor principal de toda la página */
+/* Page Block*/
 .page-trainer-profile-setup {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    /* Ocupa el 100% de la altura de la ventana */
     background-color: var(--color-bg-light);
     font-family: 'Roboto', sans-serif;
-    /* Asegúrate de que esta fuente esté importada en index.html */
     color: var(--color-text-dark);
 }
 
@@ -36,7 +34,7 @@ body {
     width: 100%;
 }
 
-/* Intro Section Block - Sección "¡Hola! Configuremos tu perfil" */
+/* Intro Section Block */
 .intro-section {
     margin-bottom: 30px;
 }
@@ -80,7 +78,7 @@ body {
     margin: 0;
 }
 
-/* Form Sections Wrapper Block - Contains the two columns (image and form) */
+/* Form Sections Wrapper Block */
 .form-sections-wrapper {
     display: flex;
     justify-content: space-between;
@@ -132,17 +130,16 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     position: relative;
-
 }
 
 .image-upload-block__uploaded-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-    left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  border-radius: 50%; 
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .image-upload-block__icon {
@@ -229,6 +226,7 @@ body {
 
 .info-form-block__input::placeholder {
     color: #aaa;
+    /* Color del placeholder */
 }
 
 .info-form-block__input:focus {
@@ -237,6 +235,7 @@ body {
     box-shadow: 0 0 0 3px rgba(253, 185, 0, 0.25);
 }
 
+/* Specific style for the date input (birthday) */
 .info-form-block__input[type="date"] {
     appearance: none;
     -webkit-appearance: none;
@@ -261,151 +260,148 @@ body {
 
 /* Styles for the button when it is ENABLED */
 .info-form-block__continue-button.info-form-block__continue-button--enabled {
-    background-color: var(--color-text-blue);
-    color: var(--color-white);
-    cursor: pointer;
+  background-color: var(--color-text-blue); 
+  color: var(--color-white); 
+  cursor: pointer; 
 }
 
-/* add a hover effect to the enabled button  */
+/* Add a hover effect for the enabled button */
 .info-form-block__continue-button.info-form-block__continue-button--enabled:hover {
-    filter: brightness(1.1);
+  filter: brightness(1.1);
 }
 
 /* --- START OF ADDITIONS FOR FLOATING AND SELECT INPUTS --- */
 
-
+/* Container of the input and floating label */
 .floating-label-group {
-    position: relative;
-    /* margin-bottom: 25px; */
+  position: relative;
+  /* margin-bottom: 25px;*/
+}
+
+.info-form-block__input {
+  padding: 15px 12px 5px 12px; 
+  outline: none;
+}
+
+/* Style for the floating label */
+.floating-label {
+  position: absolute;
+  left: 12px; 
+  top: 10px; 
+  font-size: 16px;
+  color: var(--color-text-dark); 
+  pointer-events: none; 
+  transition: all 0.2s ease-out; 
+  font-weight: bold; 
+}
+
+.info-form-block__input:focus + .floating-label,
+.info-form-block__input:not(:placeholder-shown):not([type="date"]):not(select) + .floating-label, /* ¡ESTA ES LA LÍNEA MODIFICADA! */
+.info-form-block__input[filled] + .floating-label,
+.info-form-block__input.select-filled + .floating-label {
+  top: -10px; 
+  font-size: 12px; 
+  color: var(--color-text-blue); 
+  background-color: var(--color-white);
+  padding: 0 4px; 
+  left: 8px; 
+}
+
+/* Specific styles for the <select> */
+.info-form-block__input[id="hobby"] {
+  -webkit-appearance: none; /* Removes the default arrow in Chrome/Safari */
+  -moz-appearance: none;    /* Removes the default arrow in Firefox */
+  appearance: none;         /* Removes the default arrow */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%23777"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center; 
+  padding-right: 35px;
+}
+
+.info-form-block__input option[value=""][disabled] {
+  color: var(--color-text-light); 
+}
+
+input[type="date"]#birthday.empty::-webkit-datetime-edit {
+  color: transparent;
+}
+
+input[type="date"]#birthday:focus::-webkit-datetime-edit,
+input[type="date"]#birthday:not(.empty)::-webkit-datetime-edit {
+  color: inherit;
+}
+
+#birthday:focus + .floating-label,
+#birthday:not(.empty) + .floating-label {
+  transform: translateY(-20px);
+  font-size: 12px;
+  color: var(--color-text-blue);
+}
+
+#birthday + .floating-label {
+  position: absolute;
+  left: 12px;
+  top: 16px;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  color: var(--color-text-dark);
 }
 
 
-.info-form-block__input {
-    padding: 15px 12px 5px 12px;
-    outline: none;
+/* Responsive adjustments - Media Queries */
+@media (max-width: 768px) {
 
-    /* Style for the floating label */
-    .floating-label {
-        position: absolute;
-        left: 12px;
-        top: 10px;
+    .main-header,
+    .profile-content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .form-sections-wrapper {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .image-upload-block,
+    .info-form-block {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .image-upload-block__card,
+    .info-form-block__card {
+        padding: 30px 20px;
+    }
+
+    .intro-section__title {
+        font-size: 26px;
+    }
+
+    .intro-section__subtitle {
         font-size: 16px;
-        color: var(--color-text-dark);
-        pointer-events: none;
-        transition: all 0.2s ease-out;
-        font-weight: bold;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-header {
+        padding: 15px 20px;
     }
 
-    .info-form-block__input:focus+.floating-label,
-    .info-form-block__input:not(:placeholder-shown):not([type="date"]):not(select)+.floating-label,
-    .info-form-block__input[filled]+.floating-label,
-    .info-form-block__input.select-filled+.floating-label {
-        top: -10px;
-        font-size: 12px;
-        color: var(--color-text-blue);
-        background-color: var(--color-white);
-        padding: 0 4px;
-        left: 8px;
+    .main-header__logo {
+        height: 30px;
     }
 
-    /* Specific styles for the <select> */
-    .info-form-block__input[id="hobby"] {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%23777"><path d="M7 10l5 5 5-5z"/></svg>');
-        background-repeat: no-repeat;
-        background-position: right 12px center;
-        padding-right: 35px;
+    .profile-content {
+        padding: 15px;
     }
 
-    /* Style for the first “placeholder” option of the select */
-    .info-form-block__input option[value=""][disabled] {
-        color: var(--color-text-light);
+    .image-upload-block__title,
+    .info-form-block__title {
+        font-size: 24px;
     }
 
-    input[type="date"]#birthday.empty::-webkit-datetime-edit {
-        color: transparent;
-    }
-
-    input[type="date"]#birthday:focus::-webkit-datetime-edit,
-    input[type="date"]#birthday:not(.empty)::-webkit-datetime-edit {
-        color: inherit;
-    }
-
-    #birthday:focus+.floating-label,
-    #birthday:not(.empty)+.floating-label {
-        transform: translateY(-20px);
-        font-size: 12px;
-        color: var(--color-text-blue);
-    }
-
-    /* Posición inicial del label */
-    #birthday+.floating-label {
-        position: absolute;
-        left: 12px;
-        top: 16px;
-        transition: all 0.2s ease;
-        pointer-events: none;
-        color: var(--color-text-dark);
-    }
-
-
-    /* Responsive adjustments - Media Queries */
-    @media (max-width: 768px) {
-
-        .main-header,
-        .profile-content {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-
-        .form-sections-wrapper {
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .image-upload-block,
-        .info-form-block {
-            min-width: unset;
-            width: 100%;
-        }
-
-        .image-upload-block__card,
-        .info-form-block__card {
-            padding: 30px 20px;
-        }
-
-        .intro-section__title {
-            font-size: 26px;
-        }
-
-        .intro-section__subtitle {
-            font-size: 16px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .main-header {
-            padding: 15px 20px;
-        }
-
-        .main-header__logo {
-            height: 30px;
-        }
-
-        .profile-content {
-            padding: 15px;
-        }
-
-        .image-upload-block__title,
-        .info-form-block__title {
-            font-size: 24px;
-        }
-
-        .info-form-block__continue-button {
-            padding: 12px 20px;
-            font-size: 16px;
-        }
+    .info-form-block__continue-button {
+        padding: 12px 20px;
+        font-size: 16px;
     }
 }
