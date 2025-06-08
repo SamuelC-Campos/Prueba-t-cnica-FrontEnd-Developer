@@ -25,31 +25,6 @@ body {
     color: var(--color-text-dark);
 }
 
-/* Main Header Block */
-.main-header {
-    padding: 20px 40px;
-    /* Padding a los lados */
-    background-color: var(--color-white);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    /* Sombra suave */
-    display: flex;
-    justify-content: center;
-    /* Centra el contenido del header */
-}
-
-.main-header__container {
-    max-width: 1200px;
-    /* Ancho máximo, coherente con el contenido principal */
-    width: 100%;
-}
-
-.main-header__logo {
-    height: 40px;
-    /* Tamaño del logo */
-    display: block;
-    /* Para evitar espacios extra bajo la imagen */
-}
-
 /* Profile Content Block - Área de contenido principal */
 .profile-content {
     flex-grow: 1;
@@ -243,7 +218,7 @@ body {
 }
 
 .info-form-block__form-group {
-    margin-bottom: 35px;
+    margin-bottom: 20px;
 }
 
 .info-form-block__label {
@@ -310,6 +285,18 @@ body {
     /* Ocupa todo el ancho */
     display: block;
     margin: 30px auto 0 auto;
+}
+
+/* Estilos para el botón cuando está HABILITADO */
+.info-form-block__continue-button.info-form-block__continue-button--enabled {
+  background-color: var(--color-text-blue); /* Fondo azul */
+  color: var(--color-white); /* Letras blancas */
+  cursor: pointer; /* Cambia el cursor para indicar que es clicable */
+}
+
+/* Opcional: añade un efecto hover para el botón habilitado */
+.info-form-block__continue-button.info-form-block__continue-button--enabled:hover {
+  filter: brightness(1.1); /* Ligeramente más brillante al pasar el ratón */
 }
 
 /* --- INICIO DE ADICIONES PARA INPUTS FLOTANTES Y SELECT --- */

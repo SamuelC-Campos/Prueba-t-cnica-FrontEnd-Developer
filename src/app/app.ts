@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { TrainerProfileSetupComponent } from './trainer-profile-setup/trainer-profile-setup';
+import { RouterOutlet } from '@angular/router'; // <-- Asegúrate de importar RouterOutlet
+import { CommonModule } from '@angular/common'; // Usualmente necesario
 
 @Component({
   selector: 'app-root',
-  imports: [ TrainerProfileSetupComponent ],
+  standalone: true,
+  imports: [RouterOutlet, CommonModule], // <-- RouterOutlet debe estar aquí
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
-  protected title = 'pruebaTecnica';
+export class AppComponent {
+  title = 'MiAppPokemon';
 }
