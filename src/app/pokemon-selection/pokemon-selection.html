@@ -1,1 +1,40 @@
-<p>pokemon-selection works!</p>
+<div class="pokemon-selection-page">
+
+  <main class="pokemon-selection-main">
+
+    <section class="pokemon-grid-container">
+      <h2>Pokémon Disponibles:</h2>
+      <div class="pokemon-grid">
+        @for (pokemon of pokemonList; track pokemon.id) {
+          <div 
+            class="pokemon-card" 
+            [class.selected]="pokemon.isSelected" 
+            [class.disabled]="selectedPokemon.length >= maxSelections && !pokemon.isSelected"
+            (click)="togglePokemonSelection(pokemon)"
+          >
+            <img [src]="pokemon.imageUrl" [alt]="pokemon.name" class="pokemon-image">
+            <p class="pokemon-name">{{ pokemon.name | titlecase }}</p>
+            @if (pokemon.isSelected) {
+              <div class="selected-overlay">
+                <span class="material-icons check-icon">check_circle</span>
+              </div>
+            }
+          </div>
+        } @empty {
+          <p class="loading-text">Cargando Pokémon...</p>
+        }
+      </div>
+    </section>
+
+    <div class="selection-actions">
+      <button 
+        class="continue-button" 
+        [disabled]="!isContinueButtonEnabled"
+        [class.enabled]="isContinueButtonEnabled"
+        (click)="onContinue()"
+      >
+        Continuar
+      </button>
+    </div>
+  </main>
+</div>

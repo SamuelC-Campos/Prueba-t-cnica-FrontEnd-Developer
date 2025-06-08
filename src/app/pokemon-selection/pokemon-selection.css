@@ -1,0 +1,233 @@
+/* src/app/pokemon-selection/pokemon-selection.css */
+
+.pokemon-selection-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-bg-light, #f0f2f5); /* Fondo claro */
+  font-family: 'Roboto', sans-serif;
+  color: var(--color-text-dark, #333);
+}
+
+.pokemon-selection-header {
+  text-align: center;
+  padding: 40px 20px 20px;
+  background-color: var(--color-white, #fff);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.pokemon-selection-title {
+  font-size: 32px;
+  color: var(--color-primary, #e63946); /* Color primario tipo Pokémon */
+  margin-bottom: 10px;
+}
+
+.pokemon-selection-subtitle {
+  font-size: 18px;
+  color: var(--color-text-medium, #666);
+}
+
+.pokemon-selection-main {
+  flex-grow: 1; /* Ocupa el espacio restante */
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Sección de Pokémon Seleccionados */
+.selected-pokemon-display {
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: var(--color-white, #fff);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.selected-pokemon-display h2 {
+  font-size: 24px;
+  color: var(--color-accent, #457b9d); /* Color secundario */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.selected-pokemon-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+}
+
+.selected-pokemon-card {
+  width: 120px; /* Tamaño de la tarjeta del Pokémon seleccionado */
+  height: 140px;
+  background-color: var(--color-light-gray, #e9ecef);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.selected-pokemon-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 5px;
+}
+
+.selected-pokemon-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--color-text-dark, #333);
+}
+
+.placeholder-text {
+  font-style: italic;
+  color: var(--color-text-medium, #666);
+  text-align: center;
+  width: 100%;
+}
+
+/* Cuadrícula de Pokémon Disponibles */
+.pokemon-grid-container {
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: var(--color-white, #fff);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.pokemon-grid-container h2 {
+  font-size: 24px;
+  color: var(--color-accent, #457b9d);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Cuadrícula responsiva */
+  gap: 15px;
+  justify-content: center;
+}
+
+.pokemon-card {
+  background-color: var(--color-card-bg, #f8f9fa);
+  border: 2px solid var(--color-border, #ddd);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative; /* Para el overlay */
+}
+
+.pokemon-card:hover {
+  border-color: var(--color-primary-light, #f1faee);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.pokemon-card.selected {
+  border-color: var(--color-selected-border, #28a745); /* Borde verde para seleccionado */
+  box-shadow: 0 0 0 3px var(--color-selected-shadow, rgba(40, 167, 69, 0.5));
+}
+
+.pokemon-card.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none; /* Deshabilita clics */
+}
+
+.pokemon-card.disabled.selected {
+    pointer-events: auto; /* Permite deseleccionar incluso si está deshabilitado para otros */
+    opacity: 1; /* Mantén la opacidad normal para los ya seleccionados */
+}
+
+.pokemon-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.pokemon-name {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 5px;
+  color: var(--color-text-dark, #333);
+}
+
+.selected-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(40, 167, 69, 0.7); /* Verde semitransparente */
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.check-icon {
+  color: white;
+  font-size: 48px;
+  /* Asegúrate de tener Material Icons en tu index.html */
+  /* <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> */
+}
+
+
+/* Botón Continuar */
+.selection-actions {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.continue-button {
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: var(--color-button-disabled, #ccc); /* Color por defecto deshabilitado */
+  color: var(--color-text-light, #f8f9fa);
+  border: none;
+  border-radius: 8px;
+  cursor: not-allowed;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.continue-button.enabled {
+  background-color: var(--color-button-enabled, #1976d2); /* Color azul de botón habilitado */
+  cursor: pointer;
+}
+
+.continue-button.enabled:hover {
+  background-color: var(--color-button-enabled-hover, #1565c0);
+  transform: translateY(-2px);
+}
+
+/* Variables de color (puedes definirlas en styles.css o globalmente) */
+:root {
+  --color-primary: #e63946; /* Rojo Pokémon */
+  --color-accent: #457b9d; /* Azul acento */
+  --color-white: #ffffff;
+  --color-bg-light: #f5f5f5;
+  --color-text-dark: #333333;
+  --color-text-medium: #666666;
+  --color-light-gray: #e0e0e0;
+  --color-border: #cccccc;
+  --color-card-bg: #fafafa;
+  --color-selected-border: #4CAF50; /* Verde */
+  --color-selected-shadow: rgba(76, 175, 80, 0.5);
+  --color-button-disabled: #bdbdbd;
+  --color-button-enabled: #3f51b5; /* Azul Material */
+  --color-button-enabled-hover: #303f9f;
+}
