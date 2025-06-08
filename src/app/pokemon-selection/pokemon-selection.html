@@ -1,40 +1,69 @@
 <div class="pokemon-selection-page">
-
-  <main class="pokemon-selection-main">
-
-    <section class="pokemon-grid-container">
-      <h2>Pokémon Disponibles:</h2>
-      <div class="pokemon-grid">
-        @for (pokemon of pokemonList; track pokemon.id) {
-          <div 
-            class="pokemon-card" 
-            [class.selected]="pokemon.isSelected" 
-            [class.disabled]="selectedPokemon.length >= maxSelections && !pokemon.isSelected"
-            (click)="togglePokemonSelection(pokemon)"
-          >
-            <img [src]="pokemon.imageUrl" [alt]="pokemon.name" class="pokemon-image">
-            <p class="pokemon-name">{{ pokemon.name | titlecase }}</p>
-            @if (pokemon.isSelected) {
-              <div class="selected-overlay">
-                <span class="material-icons check-icon">check_circle</span>
-              </div>
-            }
-          </div>
-        } @empty {
-          <p class="loading-text">Cargando Pokémon...</p>
-        }
-      </div>
-    </section>
-
-    <div class="selection-actions">
-      <button 
-        class="continue-button" 
-        [disabled]="!isContinueButtonEnabled"
-        [class.enabled]="isContinueButtonEnabled"
-        (click)="onContinue()"
-      >
-        Continuar
+  <section class="intro-section">
+    <div class="intro-section__back-wrapper">
+      <button class="intro-section__back-button">
+        <span class="material-icons intro-section__back-icon">arrow_back_ios</span>
       </button>
+      <div class="intro-section__text">
+        <h1 class="intro-section__title">¡Ya casi términamos!</h1>
+        <p class="intro-section__subtitle">Revisa la informacion, y completa la solicitud.</p>
+      </div>
     </div>
-  </main>
+  </section>
+
+
+  <div class="main-content-wrapper">
+    <aside class="trainer-profile-summary">
+      <div class="profile-card">
+        <h3 class="profile-detail-name"><strong>{{ trainerProfile?.name }} </strong></h3>
+        <div class="profile-image-container">
+          @if (trainerProfile?.profileImageUrl) {
+          <img [src]="trainerProfile?.profileImageUrl" alt="Foto de Perfil" class="profile-image">
+          } @else {
+          <span class="material-icons default-profile-icon">account_circle</span>
+          }
+        </div>
+        <p class="profile-detail"><strong>Pasatiempo:</strong> {{ trainerProfile?.hobby }}</p>
+        <p class="profile-detail"><strong>Edad:</strong> {{ trainerProfile?.age }} años</p>
+        <p class="profile-detail"><strong>Documento:</strong> {{ trainerProfile?.document }}</p>
+      </div>
+    </aside>
+
+    <main class="pokemon-selection-main">
+      <h2 class="info-form-block__title">Pokemon</h2>
+      <p class="info-form-block__subtitle">Selecciona 3 pokemon para que sean parte de tu equipo</p>
+      <section class="pokemon-search-container">
+        <input type="text" placeholder="Buscar por indice, nombre..." class="pokemon-search-input"
+          [(ngModel)]="searchQuery" (input)="filterPokemon()">
+      </section>
+
+      <section class="pokemon-grid-container">
+
+        <div class="pokemon-grid">
+          @for (pokemon of filteredPokemonList; track pokemon.id) {
+          <div class="pokemon-card" [class.selected]="pokemon.isSelected"
+            [class.disabled]="selectedPokemon.length >= maxSelections && !pokemon.isSelected"
+            (click)="togglePokemonSelection(pokemon)">
+
+            <div class="pokemon-image-wrapper">
+              <img [src]="pokemon.imageUrl" [alt]="pokemon.name" class="pokemon-image">
+            </div>
+            <div class="pokemon-tags-wrapper">
+              <p class="pokemon-idName">{{ '#'+ ('000' + pokemon.id).slice(-3) + ' ' + (pokemon.name | titlecase) }}</p>
+            </div>
+          </div>
+          } @empty {
+          <p class="loading-text">Cargando Pokémon...</p>
+          }
+        </div>
+      </section>
+
+      <div class="selection-actions">
+        <button class="continue-button" [disabled]="!isContinueButtonEnabled" [class.enabled]="isContinueButtonEnabled"
+          (click)="onContinue()">
+          Guardar
+        </button>
+      </div>
+    </main>
+  </div>
 </div>

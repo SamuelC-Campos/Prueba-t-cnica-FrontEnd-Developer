@@ -45,17 +45,17 @@
                     <p class="info-form-block__subtitle">Completa la siguiente información<br> para completar tu perfil
                     </p>
 
-                    <form class="info-form-block__form">
+                    <form class="info-form-block__form" (ngSubmit)="onSubmit()" #profileForm="ngForm"> 
                         <div class="info-form-block__form-group floating-label-group">
                             <input type="text" id="name" name="name" class="info-form-block__input" placeholder=" "
-                                [(ngModel)]="nameValue" [attr.filled]="nameValue.length > 0 ? true : null">
+                                [(ngModel)]="nameValue" [attr.filled]="(nameValue || '').length > 0 ? true : null" required>
                             <label for="name" class="floating-label">Nombre*</label>
                         </div>
 
                         <div class="info-form-block__form-group floating-label-group">
                             <select id="hobby" name="hobby" class="info-form-block__input" [(ngModel)]="selectedHobby"
-                                (change)="onHobbyChange()" [class.select-filled]="selectedHobby.length > 0">
-                                <option value="" disabled></option>
+                                (change)="onHobbyChange()" [class.select-filled]="(selectedHobby || '').length > 0" required>
+                                <option value="" disabled selected></option>
                                 <option value="JugarFutbol">Jugar Futbol</option>
                                 <option value="JugarBasquetball">Jugar Basquetball</option>
                                 <option value="JugarTennis">Jugar Tennis</option>
@@ -68,22 +68,22 @@
 
                         <div class="info-form-block__form-group floating-label-group">
                             <input type="date" id="birthday" name="birthday" class="info-form-block__input"
-                                [(ngModel)]="birthdayValue" (ngModelChange)="onBirthdayChange()"
-                                [class.empty]="!birthdayValue" />
+                                placeholder=" " [(ngModel)]="birthdayValue" (ngModelChange)="onBirthdayChange()"
+                                [class.empty]="!birthdayValue" required/>
                             <label for="birthday" class="floating-label">Cumpleaños*</label>
                         </div>
 
                         <div class="info-form-block__form-group floating-label-group">
                             <input type="text" id="document" name="document" class="info-form-block__input"
                                 [placeholder]="documentPlaceholder" [(ngModel)]="documentValue"
-                                [attr.filled]="documentValue.length > 0 || documentPlaceholder !== ' ' ? true : null">
-                            <label for="document" class="floating-label" [innerHtml]="documentLabel"> </label>
+                                [attr.filled]="(documentValue || '').length > 0 || documentPlaceholder !== ' ' ? true : null" required>
+                            <label for="document" class="floating-label" [innerHtml]="documentLabel"></label>
                         </div>
 
-                        <button type="button" class="info-form-block__continue-button" [disabled]="!isFormValid"
-                            [class.info-form-block__continue-button--enabled]="isFormValid" (click)="onSubmit()">
+                        <button type="submit" class="info-form-block__continue-button" [disabled]="!isFormValid"
+                            [class.info-form-block__continue-button--enabled]="isFormValid">
                             Continuar
-                        </button>   
+                        </button>
                     </form>
                 </div>
             </section>

@@ -25,20 +25,15 @@ body {
     color: var(--color-text-dark);
 }
 
-/* Profile Content Block - Área de contenido principal */
+/* Profile Content Block */
 .profile-content {
     flex-grow: 1;
-    /* Permite que ocupe el espacio vertical restante */
     display: flex;
     flex-direction: column;
     padding: 40px;
-    /* Padding general alrededor del contenido */
     max-width: 1200px;
-    /* Ancho máximo para el contenido */
     margin: 0 auto;
-    /* Centrar el contenido horizontalmente */
     width: 100%;
-    /* Asegura que use todo el ancho disponible hasta el max-width */
 }
 
 /* Intro Section Block - Sección "¡Hola! Configuremos tu perfil" */
@@ -61,19 +56,15 @@ body {
     display: flex;
     align-items: center;
     gap: 5px;
-    /* Espacio entre el ícono y el texto, si lo hubiera */
     font-size: 16px;
-    /* Tamaño de fuente para el botón */
 }
 
 .intro-section__back-icon {
     font-size: 20px;
-    /* Tamaño del ícono de flecha */
 }
 
 .intro-section__text {
     margin-left: 10px;
-    /* Espacio entre el botón de regresar y el texto */
 }
 
 .intro-section__title {
@@ -87,10 +78,9 @@ body {
     font-size: 18px;
     color: var(--color-text-medium);
     margin: 0;
-    /* Elimina márgenes por defecto de p */
 }
 
-/* Form Sections Wrapper Block - Contiene las dos columnas (imagen y formulario) */
+/* Form Sections Wrapper Block - Contains the two columns (image and form) */
 .form-sections-wrapper {
     display: flex;
     justify-content: space-between;
@@ -141,20 +131,18 @@ body {
     margin-bottom: 30px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    /* ¡Importante! Recorta la imagen para que no se salga del círculo */
     position: relative;
-    /* Necesario para posicionar la imagen subida si es absoluto */
 
 }
 
 .image-upload-block__uploaded-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Asegura que la imagen cubra todo el espacio sin distorsionarse */
-  border-radius: 50%; /* Le da forma circular a la imagen */
-  position: absolute; /* Para que se superponga al icono */
-  top: 0;
-  left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .image-upload-block__icon {
@@ -176,7 +164,6 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    /* Espacio entre texto y ícono de nube */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -199,7 +186,6 @@ body {
     padding-right: 40px;
     padding-bottom: 40px;
     height: 100%;
-    /* Asegura que ambas tarjetas en la fila tengan la misma altura */
 }
 
 .info-form-block__title {
@@ -238,36 +224,24 @@ body {
     color: var(--color-text-dark);
     box-sizing: border-box;
     font-weight: bold;
-    /* Asegura que el padding y el borde se incluyan en el ancho total */
     transition: border-color 0.3s ease;
 }
 
 .info-form-block__input::placeholder {
     color: #aaa;
-    /* Color del placeholder */
 }
 
 .info-form-block__input:focus {
     border-color: var(--color-primary-yellow);
     outline: none;
     box-shadow: 0 0 0 3px rgba(253, 185, 0, 0.25);
-    /* Sombra de enfoque amarillo */
 }
 
-/* Estilo específico para el input de fecha (cumpleaños) */
 .info-form-block__input[type="date"] {
-    /* Algunas propiedades de apariencia para el input de fecha */
-    /* Puedes necesitar más hacks para personalizarlo completamente en todos los navegadores */
     appearance: none;
-    /* Elimina estilos por defecto de algunos navegadores */
     -webkit-appearance: none;
     -moz-appearance: none;
 }
-
-/* Para el icono del calendario en el input date, el navegador lo renderiza.
-   Si necesitas un ícono personalizado, tendrías que usar un contenedor
-   con el input y un span con el ícono, posicionándolo absolutamente. */
-
 
 .info-form-block__continue-button {
     background-color: var(--color-button-disabled-bg);
@@ -279,174 +253,159 @@ body {
     font-weight: bold;
     cursor: not-allowed;
     align-items: center;
-    /* Como en la imagen */
     transition: background-color 0.3s ease, color 0.3s ease;
     width: 50%;
-    /* Ocupa todo el ancho */
     display: block;
     margin: 30px auto 0 auto;
 }
 
-/* Estilos para el botón cuando está HABILITADO */
+/* Styles for the button when it is ENABLED */
 .info-form-block__continue-button.info-form-block__continue-button--enabled {
-  background-color: var(--color-text-blue); /* Fondo azul */
-  color: var(--color-white); /* Letras blancas */
-  cursor: pointer; /* Cambia el cursor para indicar que es clicable */
+    background-color: var(--color-text-blue);
+    color: var(--color-white);
+    cursor: pointer;
 }
 
-/* Opcional: añade un efecto hover para el botón habilitado */
+/* add a hover effect to the enabled button  */
 .info-form-block__continue-button.info-form-block__continue-button--enabled:hover {
-  filter: brightness(1.1); /* Ligeramente más brillante al pasar el ratón */
+    filter: brightness(1.1);
 }
 
-/* --- INICIO DE ADICIONES PARA INPUTS FLOTANTES Y SELECT --- */
+/* --- START OF ADDITIONS FOR FLOATING AND SELECT INPUTS --- */
 
-/* Contenedor del input y el label flotante */
+
 .floating-label-group {
-  position: relative;
-  /* margin-bottom: 25px; /* Comenta o quita si ya tienes margin-bottom en .info-form-block__form-group */
+    position: relative;
+    /* margin-bottom: 25px; */
 }
 
-/* Modificación de la regla existente .info-form-block__input */
-/* ¡IMPORTANTE! Busca tu regla existente para '.info-form-block__input' y actualiza el padding y añade outline: none; */
-/* Si tu regla existente tiene 'padding: 12px 10px;', debes cambiarla a la siguiente: */
+
 .info-form-block__input {
-  /* Mantén tus propiedades existentes como width, border, border-radius, font-size, color, box-sizing, font-weight, transition */
-  padding: 15px 12px 5px 12px; /* Ajuste crucial para dar espacio al label flotante */
-  outline: none; /* Elimina el contorno por defecto al enfocar */
-}
+    padding: 15px 12px 5px 12px;
+    outline: none;
 
-/* Estilo para el label flotante */
-.floating-label {
-  position: absolute;
-  left: 12px; /* Misma posición horizontal que el padding del input */
-  top: 10px; /* Posición inicial vertical del label */
-  font-size: 16px;
-  color: var(--color-text-dark); /* Color inicial (como un placeholder) */
-  pointer-events: none; /* Permite hacer clic a través del label hacia el input */
-  transition: all 0.2s ease-out; /* Transición suave para el movimiento y tamaño */
-  font-weight: bold; /* El texto "Nombre", "Pasatiempo favorito", etc., en negrita */
-}
-
-.info-form-block__input:focus + .floating-label,
-.info-form-block__input:not(:placeholder-shown):not([type="date"]):not(select) + .floating-label, /* ¡ESTA ES LA LÍNEA MODIFICADA! */
-.info-form-block__input[filled] + .floating-label,
-.info-form-block__input.select-filled + .floating-label {
-  top: -10px; /* Mueve el label hacia arriba */
-  font-size: 12px; /* Reduce el tamaño del label */
-  color: var(--color-text-blue); /* Cambia el color cuando está activo/lleno */
-  background-color: var(--color-white); /* Para "cortar" el fondo y que el label se vea por encima */
-  padding: 0 4px; /* Pequeño padding alrededor del label movido */
-  left: 8px; /* Ligeramente más a la izquierda cuando se mueve arriba */
-}
-
-/* Estilos específicos para el <select> */
-.info-form-block__input[id="hobby"] {
-  -webkit-appearance: none; /* Elimina la flecha por defecto en Chrome/Safari */
-  -moz-appearance: none;    /* Elimina la flecha por defecto en Firefox */
-  appearance: none;         /* Elimina la flecha por defecto */
-  /* Icono de flecha SVG en base64 para reemplazar la flecha por defecto del navegador */
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%23777"><path d="M7 10l5 5 5-5z"/></svg>');
-  background-repeat: no-repeat;
-  background-position: right 12px center; /* Posiciona la flecha a la derecha */
-  padding-right: 35px; /* Deja espacio para la flecha */
-}
-
-/* Estilo para la primera opción "placeholder" del select */
-.info-form-block__input option[value=""][disabled] {
-  color: var(--color-text-light); /* Color similar al placeholder */
-  /* Puedes añadir 'display: none;' aquí si no quieres que esta opción aparezca en la lista desplegable una vez seleccionado un valor */
-}
-
-/* Solo cuando está vacío se oculta el valor de fecha */
-input[type="date"]#birthday.empty::-webkit-datetime-edit {
-  color: transparent;
-}
-
-/* Cuando se enfoca o tiene valor, se muestra */
-input[type="date"]#birthday:focus::-webkit-datetime-edit,
-input[type="date"]#birthday:not(.empty)::-webkit-datetime-edit {
-  color: inherit;
-}
-
-/* Que el label no se superponga si el input tiene valor o está en focus */
-#birthday:focus + .floating-label,
-#birthday:not(.empty) + .floating-label {
-  transform: translateY(-20px);
-  font-size: 12px;
-  color: var(--color-text-blue);
-}
-
-/* Posición inicial del label */
-#birthday + .floating-label {
-  position: absolute;
-  left: 12px;
-  top: 16px;
-  transition: all 0.2s ease;
-  pointer-events: none;
-  color: var(--color-text-dark);
-}
-
-
-/* Responsive adjustments - Media Queries */
-@media (max-width: 768px) {
-
-    .main-header,
-    .profile-content {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    .form-sections-wrapper {
-        flex-direction: column;
-        /* Apila las columnas en pantallas pequeñas */
-        gap: 30px;
-        /* Espacio entre las secciones apiladas */
-    }
-
-    .image-upload-block,
-    .info-form-block {
-        min-width: unset;
-        /* Elimina el ancho mínimo */
-        width: 100%;
-        /* Ocupa todo el ancho disponible */
-    }
-
-    .image-upload-block__card,
-    .info-form-block__card {
-        padding: 30px 20px;
-        /* Reduce padding en pantallas pequeñas */
-    }
-
-    .intro-section__title {
-        font-size: 26px;
-    }
-
-    .intro-section__subtitle {
+    /* Style for the floating label */
+    .floating-label {
+        position: absolute;
+        left: 12px;
+        top: 10px;
         font-size: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    .main-header {
-        padding: 15px 20px;
+        color: var(--color-text-dark);
+        pointer-events: none;
+        transition: all 0.2s ease-out;
+        font-weight: bold;
     }
 
-    .main-header__logo {
-        height: 30px;
+    .info-form-block__input:focus+.floating-label,
+    .info-form-block__input:not(:placeholder-shown):not([type="date"]):not(select)+.floating-label,
+    .info-form-block__input[filled]+.floating-label,
+    .info-form-block__input.select-filled+.floating-label {
+        top: -10px;
+        font-size: 12px;
+        color: var(--color-text-blue);
+        background-color: var(--color-white);
+        padding: 0 4px;
+        left: 8px;
     }
 
-    .profile-content {
-        padding: 15px;
+    /* Specific styles for the <select> */
+    .info-form-block__input[id="hobby"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%23777"><path d="M7 10l5 5 5-5z"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        padding-right: 35px;
     }
 
-    .image-upload-block__title,
-    .info-form-block__title {
-        font-size: 24px;
+    /* Style for the first “placeholder” option of the select */
+    .info-form-block__input option[value=""][disabled] {
+        color: var(--color-text-light);
     }
 
-    .info-form-block__continue-button {
-        padding: 12px 20px;
-        font-size: 16px;
+    input[type="date"]#birthday.empty::-webkit-datetime-edit {
+        color: transparent;
+    }
+
+    input[type="date"]#birthday:focus::-webkit-datetime-edit,
+    input[type="date"]#birthday:not(.empty)::-webkit-datetime-edit {
+        color: inherit;
+    }
+
+    #birthday:focus+.floating-label,
+    #birthday:not(.empty)+.floating-label {
+        transform: translateY(-20px);
+        font-size: 12px;
+        color: var(--color-text-blue);
+    }
+
+    /* Posición inicial del label */
+    #birthday+.floating-label {
+        position: absolute;
+        left: 12px;
+        top: 16px;
+        transition: all 0.2s ease;
+        pointer-events: none;
+        color: var(--color-text-dark);
+    }
+
+
+    /* Responsive adjustments - Media Queries */
+    @media (max-width: 768px) {
+
+        .main-header,
+        .profile-content {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .form-sections-wrapper {
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .image-upload-block,
+        .info-form-block {
+            min-width: unset;
+            width: 100%;
+        }
+
+        .image-upload-block__card,
+        .info-form-block__card {
+            padding: 30px 20px;
+        }
+
+        .intro-section__title {
+            font-size: 26px;
+        }
+
+        .intro-section__subtitle {
+            font-size: 16px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .main-header {
+            padding: 15px 20px;
+        }
+
+        .main-header__logo {
+            height: 30px;
+        }
+
+        .profile-content {
+            padding: 15px;
+        }
+
+        .image-upload-block__title,
+        .info-form-block__title {
+            font-size: 24px;
+        }
+
+        .info-form-block__continue-button {
+            padding: 12px 20px;
+            font-size: 16px;
+        }
     }
 }

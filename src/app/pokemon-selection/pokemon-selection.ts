@@ -1,45 +1,63 @@
-// src/app/pokemon-selection/pokemon-selection.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http'; // Para hacer solicitudes HTTP
-import { Router } from '@angular/router'; // Para futuras navegaciones
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { TrainerProfileService, TrainerProfile } from '../services/trainer-profile';
+import { FormsModule } from '@angular/forms';
 
-// Opcional: define una interfaz para los datos de Pokémon para mejor tipado
 interface Pokemon {
   name: string;
   url: string;
-  id?: number;
-  imageUrl?: string;
-  isSelected?: boolean; // Para controlar la selección en la UI
+  id: number;
+  imageUrl: string;
+  isSelected: boolean;
 }
 
 @Component({
   selector: 'app-pokemon-selection',
   standalone: true,
-  imports: [CommonModule], 
+  imports: [CommonModule, FormsModule],
   templateUrl: './pokemon-selection.html',
   styleUrl: './pokemon-selection.css'
 })
-export class PokemonSelection implements OnInit { 
+export class PokemonSelection implements OnInit {
 
-  pokemonList: Pokemon[] = []; // Para almacenar la lista de Pokémon
-  selectedPokemon: Pokemon[] = []; // Para almacenar los 3 Pokémon seleccionados
-  maxSelections: number = 3; // Límite de Pokémon a seleccionar
+  pokemonList: Pokemon[] = []; // Stores the complete Pokémon list
+  filteredPokemonList: Pokemon[] = []; //<-- Stores the list of Pokémon displayed (filtered).
+  selectedPokemon: Pokemon[] = []; // Stores the 3 selected Pokémon
+  maxSelections: number = 3; // Limit of Pokémon to be selected
 
-  // Inyectamos HttpClient y Router
-  constructor(private http: HttpClient, private router: Router) { }
+  trainerProfile: TrainerProfile | null = null;
+  searchQuery: string = '';
+
+  // Inyectamos HttpClient, Router y TrainerProfileService
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private trainerProfileService: TrainerProfileService
+  ) { }
 
   ngOnInit(): void {
-    // Cuando el componente se inicializa, carga los Pokémon
+    // Load the trainer's profile when the component is started
+    this.loadTrainerProfile();
+    // 2. Load the Pokémon list
     this.loadPokemon();
   }
 
+  //Loads the trainer's service profile
+  loadTrainerProfile(): void {
+    this.trainerProfile = this.trainerProfileService.getProfile();
+    if (this.trainerProfile) {
+      console.log('Perfil de entrenador cargado en PokemonSelection:', this.trainerProfile);
+    } else {
+      console.warn('No se encontró un perfil de entrenador. Asegúrate de haberlo configurado.');
+    }
+  }
+
   loadPokemon(): void {
-    
-    const limit = 151; // numero de pokemons
+    const limit = 125; // numbers de pokemons
     this.http.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`).subscribe({
       next: (response: any) => {
-        // Mapeamos la respuesta para obtener los IDs y URLs de imagen
         this.pokemonList = response.results.map((pokemon: any) => {
           const id = this.extractPokemonId(pokemon.url);
           return {
@@ -50,6 +68,8 @@ export class PokemonSelection implements OnInit {
             isSelected: false
           };
         });
+        // Initializes the filtered list with all the Pokémon loaded.
+        this.filteredPokemonList = [...this.pokemonList];
         console.log('Pokémon cargados:', this.pokemonList);
       },
       error: (error) => {
@@ -58,45 +78,61 @@ export class PokemonSelection implements OnInit {
     });
   }
 
-  // Pequeña función para extraer el ID del Pokémon de su URL
+  // Small function to extract the Pokémon's ID from its URL
   private extractPokemonId(url: string): number {
     const parts = url.split('/');
     return parseInt(parts[parts.length - 2]);
   }
 
-  // Lógica para seleccionar/deseleccionar un Pokémon
+  // <-- NEW METHOD! Filter the list of Pokémon
+  filterPokemon(): void {
+    const query = this.searchQuery.toLowerCase().trim();
+    if (!query) {
+      this.filteredPokemonList = [...this.pokemonList]; // If the search is empty, displays all
+      return;
+    }
+
+    this.filteredPokemonList = this.pokemonList.filter(pokemon => {
+      // Search by name (case insensitive)
+      const nameMatch = pokemon.name.toLowerCase().includes(query);
+      // Search by ID (converts ID to string for comparison)
+      const idMatch = pokemon.id.toString().includes(query);
+
+      return nameMatch || idMatch;
+    });
+  }
+
+  // Logic for selecting/deselecting a Pokémonn
   togglePokemonSelection(pokemon: Pokemon): void {
     const index = this.selectedPokemon.findIndex(p => p.id === pokemon.id);
 
     if (index > -1) {
-      // Si el Pokémon ya está seleccionado, lo deselecciona
+      // If the Pokémon is already selected, deselects it.
       this.selectedPokemon.splice(index, 1);
       pokemon.isSelected = false;
     } else {
-      // Si el Pokémon no está seleccionado y aún no hemos alcanzado el límite
+      // If the Pokémon is not selected and the limit has not yet been reached
       if (this.selectedPokemon.length < this.maxSelections) {
         this.selectedPokemon.push(pokemon);
         pokemon.isSelected = true;
       } else {
         console.log(`Ya has seleccionado el máximo de ${this.maxSelections} Pokémon.`);
-        // Opcional: Mostrar un mensaje al usuario
+        alert(`Solo puedes seleccionar hasta ${this.maxSelections} Pokémon.`);
       }
     }
     console.log('Pokémon seleccionados:', this.selectedPokemon);
   }
-
-  // Getter para saber si el botón de continuar debe estar habilitado
+  // Getter to find out if the continue button should be enabled
   get isContinueButtonEnabled(): boolean {
     return this.selectedPokemon.length === this.maxSelections;
   }
 
-  // Método para manejar el clic en el botón "Continuar"
+  // Method for handling the click on the “Continue” button.
   onContinue(): void {
     if (this.isContinueButtonEnabled) {
       console.log('Selección de Pokémon completa. Navegando a la siguiente página...');
       alert('¡Pokémon seleccionados con éxito! (Navegación pendiente)');
+      // this.router.navigate(['/resumen-seleccion']);
     }
   }
-
-
 }

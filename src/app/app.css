@@ -1,24 +1,16 @@
-/* Main Header Block */
 .main-header {
-    padding: 5px 30px;
-    /* Padding a los lados */
     background-color: var(--color-white);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    /* Sombra suave */
     display: flex;
     justify-content: center;
-    /* Centra el contenido del header */
 }
 
 .main-header__container {
     max-width: 1200px;
-    /* Ancho máximo, coherente con el contenido principal */
     width: 100%;
 }
 
 .main-header__logo {
     height: 100px;
-    /* Tamaño del logo */
     display: block;
-    /* Para evitar espacios extra bajo la imagen */
 }

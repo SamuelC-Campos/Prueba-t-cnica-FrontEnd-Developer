@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router'; // <-- Importa Router
-
+import { Router } from '@angular/router';
+import { TrainerProfileService, TrainerProfile } from '../services/trainer-profile';
 
 @Component({
   selector: 'app-trainer-profile-setup',
@@ -12,20 +12,22 @@ import { Router } from '@angular/router'; // <-- Importa Router
   styleUrl: './trainer-profile-setup.css'
 })
 export class TrainerProfileSetupComponent implements OnInit {
-  profileImageUrl: string | ArrayBuffer | null = null; // Para mostrar la imagen previsualizada
+  profileImageUrl: string | ArrayBuffer | null = null; // display the preview image
   selectedHobby: string = "";
-  isHobbySelected: boolean = false;
-  
+  isHobbySelected: boolean = false; // Property for the conditional style of the select
+
   documentValue: string = '';
   nameValue: string = '';
 
-  // Nuevas propiedades para la lógica de cumpleaños/documento
-  birthdayValue: string | null = null; // Para el valor del campo de cumpleaños
-  documentLabel: string = 'Documento'; // Etiqueta inicial
-  documentPlaceholder: string = ' '; // Placeholder inicial (un espacio para el efecto de floating label)
+  // Birthday logic/document
+  birthdayValue: string | null = null;
+  documentLabel: string = 'Documento';
+  documentPlaceholder: string = ' ';
 
 
-   constructor(private router: Router) { }
+  // Router y el TrainerProfileService
+  constructor(private router: Router, private trainerProfileService: TrainerProfileService) { }
+
   ngOnInit(): void {
   }
 
@@ -36,20 +38,20 @@ export class TrainerProfileSetupComponent implements OnInit {
       const reader = new FileReader();
 
       reader.onload = () => {
-        this.profileImageUrl = reader.result; // Asigna la URL base64 para la previsualización
+        this.profileImageUrl = reader.result; // Assigns the base64 URL for previewing
       };
 
-      reader.readAsDataURL(file); // Lee el archivo como una URL base64
+      reader.readAsDataURL(file); // Reads the file as a base64 URL
     } else {
       this.profileImageUrl = null;
     }
   }
 
- onHobbyChange(): void {
-    this.isHobbySelected = !!this.selectedHobby; // true si selectedHobby tiene un valor (no vacío)
+  onHobbyChange(): void {
+    this.isHobbySelected = !!this.selectedHobby;
   }
 
-  // Nuevo método para detectar el cambio de fecha de cumpleaños y actualizar el documento
+  // method to detect the change of birthday and update the document
   onBirthdayChange(): void {
     if (this.birthdayValue) {
       const birthDate = new Date(this.birthdayValue);
@@ -58,69 +60,103 @@ export class TrainerProfileSetupComponent implements OnInit {
       let age = today.getFullYear() - birthDate.getFullYear();
       const monthDiff = today.getMonth() - birthDate.getMonth();
 
-      // Ajustar edad si el cumpleaños de este año aún no ha pasado
+      // Set age if this year's birthday has not yet passed
       if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
         age--;
       }
 
       if (age >= 18) {
         this.documentLabel = 'DUI*';
-        this.documentPlaceholder = '00000000-0'; // Formato de DUI
+        this.documentPlaceholder = '00000000-0'; // Format DUI
         this.documentValue = '';
       } else {
         this.documentLabel = 'Carnet de minoridad';
-        this.documentPlaceholder = ''; 
+        this.documentPlaceholder = ''; //Carnet
+        this.documentValue = '';
       }
     } else {
-      // Si el campo de fecha de cumpleaños se vacía, restablecer el documento a su estado inicial
+      // If the birthday date field becomes empty, reset the document to its initial state
       this.documentLabel = 'Documento';
       this.documentPlaceholder = ' ';
-      // Opcional: limpiar el valor del documento
       this.documentValue = '';
     }
   }
 
-  // Este getter determinará si el formulario es válido para habilitar el botón
+  // This getter will determine if the form is valid to enable the button.
   get isFormValid(): boolean {
-    // 1. El campo "Nombre" es obligatorio
+    // The “Name” field is mandatory.
     if (!this.nameValue || this.nameValue.trim().length === 0) {
       return false;
     }
 
-    // 2. El campo "Cumpleaños" es obligatorio
+    // The “Hobby” field is mandatory (assuming that the option disabled selected with value="" makes it required).
+    if (!this.selectedHobby) {
+      return false;
+    }
+
+    //The birthday field uis mandatory
     if (!this.birthdayValue) {
       return false;
     }
 
-    // 3. Lógica condicional para el campo "Documento"
-    if (this.documentLabel === 'DUI*') {
-      // Si la etiqueta es "DUI" (mayor de edad), el campo documento es obligatorio
+    // Conditional logic for the "Document" field
+    // Calculate the age to know if DUI is required.
+    const age = this.birthdayValue ? this.calculateAge(this.birthdayValue) : 0;
+    const isAdult = age >= 18;
+
+    if (isAdult) {
+      // If you are of legal age, the DUI is mandatory and must be in a basic format (e.g. not empty)
       if (!this.documentValue || this.documentValue.trim().length === 0) {
         return false;
       }
     }
-    // Si la etiqueta es "Carnet de minoridad" (menor de edad), el campo documento NO es obligatorio,
-    // por lo tanto, no necesitamos un 'return false' aquí.
+    // If you are a minor, the minor card is not required, so we don't need a ‘return false’ here.
 
-    // Si todas las validaciones anteriores pasan, el formulario es válido
+    // If all the above validations pass, the form is valid.
     return true;
+  }
+
+  // Auxiliary function to calculate age (used in isFormValid)
+  private calculateAge(birthdayString: string): number {
+    const birthDate = new Date(birthdayString);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
   }
 
   onSubmit(): void {
     if (this.isFormValid) {
-      console.log('Formulario válido. Navegando a la pantalla de carga...');
-      // Navega a la pantalla de carga. La ruta '/loading' debe estar definida en app.routes.ts
-      this.router.navigate(['/loading']); 
+      // We calculate age and if adult just before saving
+      const age = this.calculateAge(this.birthdayValue!);
+      const isAdult = age >= 18;
 
-      // Simula un tiempo de carga (por ejemplo, 3 segundos) antes de navegar a la siguiente página
+      // Create the object with the profile data
+      const trainerProfile: TrainerProfile = {
+        name: this.nameValue,
+        profileImageUrl: this.profileImageUrl?.toString() || '',
+        hobby: this.selectedHobby,
+        age: age,
+        document: this.documentValue,
+        isAdult: isAdult
+      };
+
+      // SAVE THE PROFILE IN THE SERVICE
+      this.trainerProfileService.setProfile(trainerProfile);
+
+      console.log('Formulario válido. Datos guardados. Navegando a la pantalla de carga...');
+      this.router.navigate(['/loading']);
+
+      // Simulates a loading time (e.g., 3 seconds) before navigating to the next page
       setTimeout(() => {
         console.log('Carga completa. Navegando a la selección de Pokémon...');
-        // Navega a la página de selección de Pokémon. La ruta '/pokemon-selection' debe estar definida en app.routes.ts
         this.router.navigate(['/pokemon-selection']);
-      }, 3000); // 3000 milisegundos = 3 segundos
+      }, 3000); // 3000 miliseconds = 3 seconds
     } else {
       console.log('Formulario inválido. Por favor, completa todos los campos requeridos.');
-      // Opcional: podrías mostrar una alerta o mensajes de error al usuario aquí
     }
   }
 }
