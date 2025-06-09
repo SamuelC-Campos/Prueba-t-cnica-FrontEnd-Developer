@@ -1,0 +1,407 @@
+/* Base styles / Resets for consistency */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Roboto;
+    /* Important for min-height: 100vh on main container */
+}
+
+* {
+    box-sizing: border-box;
+    /* Ensures padding and border are included in element's total width and height */
+}
+
+/* Page Block*/
+.page-trainer-profile-setup {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--color-bg-light);
+    font-family: 'Roboto', sans-serif;
+    color: var(--color-text-dark);
+}
+
+/* Profile Content Block */
+.profile-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Intro Section Block */
+.intro-section {
+    margin-bottom: 30px;
+}
+
+.intro-section__back-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.intro-section__back-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--color-text-medium);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 16px;
+}
+
+.intro-section__back-icon {
+    font-size: 20px;
+}
+
+.intro-section__text {
+    margin-left: 10px;
+}
+
+.intro-section__title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--color-text-blue);
+}
+
+.intro-section__subtitle {
+    font-size: 18px;
+    color: var(--color-text-medium);
+    margin: 0;
+}
+
+/* Form Sections Wrapper Block */
+.form-sections-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+
+/* Image Upload Block */
+.image-upload-block {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+}
+
+.image-upload-block__card {
+    background-color: var(--color-primary-yellow);
+    border-radius: 50px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: 100%;
+    color: var(--color-white);
+}
+
+.image-upload-block__title {
+    font-size: 28px;
+    font-weight: 700;
+    /* margin-bottom: 30px; */
+    color: var(--color-text-dark);
+}
+
+.image-upload-block__placeholder {
+    width: 250px;
+    height: 250px;
+    background-color: var(--color-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+.image-upload-block__uploaded-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  border-radius: 50%; 
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.image-upload-block__icon {
+    font-size: 250px;
+    color: #ccc;
+    z-index: 1;
+}
+
+.image-upload-block__upload-button {
+    background-color: var(--color-white);
+    color: var(--color-text-blue);
+    border: none;
+    border-radius: 5px;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.image-upload-block__upload-button:hover {
+    background-color: #eee;
+}
+
+/* Info Form Block */
+.info-form-block {
+    flex: 2;
+    min-width: 450px;
+    display: flex;
+    justify-content: center;
+    height: auto;
+}
+
+.info-form-block__card {
+    background-color: var(--color-bg-light);
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+    height: 100%;
+}
+
+.info-form-block__title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--color-text-blue);
+
+}
+
+.info-form-block__subtitle {
+    font-size: 16px;
+    color: var(--color-text-light);
+    margin-bottom: 30px;
+    margin-right: 50px;
+}
+
+.info-form-block__form-group {
+    margin-bottom: 20px;
+}
+
+.info-form-block__label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-text-medium);
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.info-form-block__input {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid var(--color-border-light);
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--color-text-dark);
+    box-sizing: border-box;
+    font-weight: bold;
+    transition: border-color 0.3s ease;
+}
+
+.info-form-block__input::placeholder {
+    color: #aaa;
+    /* Color del placeholder */
+}
+
+.info-form-block__input:focus {
+    border-color: var(--color-primary-yellow);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(253, 185, 0, 0.25);
+}
+
+/* Specific style for the date input (birthday) */
+.info-form-block__input[type="date"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.info-form-block__continue-button {
+    background-color: var(--color-button-disabled-bg);
+    color: var(--color-button-disabled-text);
+    border: none;
+    border-radius: 8px;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: not-allowed;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 50%;
+    display: block;
+    margin: 30px auto 0 auto;
+}
+
+/* Styles for the button when it is ENABLED */
+.info-form-block__continue-button.info-form-block__continue-button--enabled {
+  background-color: var(--color-text-blue); 
+  color: var(--color-white); 
+  cursor: pointer; 
+}
+
+/* Add a hover effect for the enabled button */
+.info-form-block__continue-button.info-form-block__continue-button--enabled:hover {
+  filter: brightness(1.1);
+}
+
+/* --- START OF ADDITIONS FOR FLOATING AND SELECT INPUTS --- */
+
+/* Container of the input and floating label */
+.floating-label-group {
+  position: relative;
+  /* margin-bottom: 25px;*/
+}
+
+.info-form-block__input {
+  padding: 15px 12px 5px 12px; 
+  outline: none;
+}
+
+/* Style for the floating label */
+.floating-label {
+  position: absolute;
+  left: 12px; 
+  top: 10px; 
+  font-size: 16px;
+  color: var(--color-text-dark); 
+  pointer-events: none; 
+  transition: all 0.2s ease-out; 
+  font-weight: bold; 
+}
+
+.info-form-block__input:focus + .floating-label,
+.info-form-block__input:not(:placeholder-shown):not([type="date"]):not(select) + .floating-label, /* ¡ESTA ES LA LÍNEA MODIFICADA! */
+.info-form-block__input[filled] + .floating-label,
+.info-form-block__input.select-filled + .floating-label {
+  top: -10px; 
+  font-size: 12px; 
+  color: var(--color-text-blue); 
+  background-color: var(--color-white);
+  padding: 0 4px; 
+  left: 8px; 
+}
+
+/* Specific styles for the <select> */
+.info-form-block__input[id="hobby"] {
+  -webkit-appearance: none; /* Removes the default arrow in Chrome/Safari */
+  -moz-appearance: none;    /* Removes the default arrow in Firefox */
+  appearance: none;         /* Removes the default arrow */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%23777"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center; 
+  padding-right: 35px;
+}
+
+.info-form-block__input option[value=""][disabled] {
+  color: var(--color-text-light); 
+}
+
+input[type="date"]#birthday.empty::-webkit-datetime-edit {
+  color: transparent;
+}
+
+input[type="date"]#birthday:focus::-webkit-datetime-edit,
+input[type="date"]#birthday:not(.empty)::-webkit-datetime-edit {
+  color: inherit;
+}
+
+#birthday:focus + .floating-label,
+#birthday:not(.empty) + .floating-label {
+  transform: translateY(-20px);
+  font-size: 12px;
+  color: var(--color-text-blue);
+}
+
+#birthday + .floating-label {
+  position: absolute;
+  left: 12px;
+  top: 16px;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  color: var(--color-text-dark);
+}
+
+
+/* Responsive adjustments - Media Queries */
+@media (max-width: 768px) {
+
+    .main-header,
+    .profile-content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .form-sections-wrapper {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .image-upload-block,
+    .info-form-block {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .image-upload-block__card,
+    .info-form-block__card {
+        padding: 30px 20px;
+    }
+
+    .intro-section__title {
+        font-size: 26px;
+    }
+
+    .intro-section__subtitle {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-header {
+        padding: 15px 20px;
+    }
+
+    .main-header__logo {
+        height: 30px;
+    }
+
+    .profile-content {
+        padding: 15px;
+    }
+
+    .image-upload-block__title,
+    .info-form-block__title {
+        font-size: 24px;
+    }
+
+    .info-form-block__continue-button {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,95 @@
+<div class="page-trainer-profile-setup">
+
+    <main class="profile-content">
+        <section class="intro-section">
+            <div class="intro-section__back-wrapper">
+                <button class="intro-section__back-button">
+                    <span class="material-icons intro-section__back-icon">arrow_back_ios</span>
+                </button>
+                <div class="intro-section__text">
+                    <h1 class="intro-section__title">¡Hola! Configuremos tu perfil</h1>
+                    <p class="intro-section__subtitle">Queremos conocerte mejor.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="form-sections-wrapper">
+            <section class="image-upload-block">
+                <div class="image-upload-block__card">
+                    <h2 class="image-upload-block__title">Imagen perfil</h2>
+                    <div class="image-upload-block__placeholder">
+                        @if (!profileImageUrl) {
+                        <span class="material-icons image-upload-block__icon">account_circle</span>
+                        } @else {
+                        <img [src]="profileImageUrl" alt="Profile Image" class="image-upload-block__uploaded-image">
+                        }
+                    </div>
+                    <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*"
+                        style="display: none;">
+                    @if (!profileImageUrl){
+                    <button class="image-upload-block__upload-button" (click)="fileInput.click()">
+                        Adjunta una foto <span class="material-icons">cloud_upload</span>
+                    </button>
+                    }@else {
+                    <button class="image-upload-block__upload-button" (click)="fileInput.click()">
+                        Adjunta una nueva foto <span class="material-icons">cloud_upload</span>
+                    </button>
+                    }
+
+                </div>
+            </section>
+
+            <section class="info-form-block">
+                <div class="info-form-block__card">
+                    <h2 class="info-form-block__title">Tu información</h2>
+                    <p class="info-form-block__subtitle">Completa la siguiente información<br> para completar tu perfil
+                    </p>
+
+                    <form class="info-form-block__form" (ngSubmit)="onSubmit()" #profileForm="ngForm">
+                        <div class="info-form-block__form-group floating-label-group">
+                            <input type="text" id="name" name="name" class="info-form-block__input" placeholder=" "
+                                [(ngModel)]="nameValue" [attr.filled]="(nameValue || '').length > 0 ? true : null"
+                                required>
+                            <label for="name" class="floating-label">Nombre*</label>
+                        </div>
+
+                        <div class="info-form-block__form-group floating-label-group">
+                            <select id="hobby" name="hobby" class="info-form-block__input" [(ngModel)]="selectedHobby"
+                                (change)="onHobbyChange()" [class.select-filled]="(selectedHobby || '').length > 0"
+                                required>
+                                <option value="" disabled selected></option>
+                                <option value="JugarFutbol">Jugar Futbol</option>
+                                <option value="JugarBasquetball">Jugar Basquetball</option>
+                                <option value="JugarTennis">Jugar Tennis</option>
+                                <option value="JugarVoleibol">Jugar Voleibol</option>
+                                <option value="JugarFifa">Jugar Fifa</option>
+                                <option value="JugarVideoJuegos">Jugar VideoJuegos</option>
+                            </select>
+                            <label for="hobby" class="floating-label">Pasatiempo favorito</label>
+                        </div>
+
+                        <div class="info-form-block__form-group floating-label-group">
+                            <input type="date" id="birthday" name="birthday" class="info-form-block__input"
+                                placeholder=" " [(ngModel)]="birthdayValue" (ngModelChange)="onBirthdayChange()"
+                                [class.empty]="!birthdayValue" required />
+                            <label for="birthday" class="floating-label">Cumpleaños*</label>
+                        </div>
+
+                        <div class="info-form-block__form-group floating-label-group">
+                            <input type="text" id="document" name="document" class="info-form-block__input"
+                                [placeholder]="documentPlaceholder" [(ngModel)]="documentValue" appDuiMask
+                                [attr.filled]="(documentValue || '').length > 0 || documentPlaceholder !== ' ' ? true : null"
+                                required>
+                            <label for="document" class="floating-label" [innerHtml]="documentLabel"></label>
+                        </div>
+
+                        <button type="submit" class="info-form-block__continue-button" [disabled]="!isFormValid"
+                            [class.info-form-block__continue-button--enabled]="isFormValid">
+                            Continuar
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+</div>

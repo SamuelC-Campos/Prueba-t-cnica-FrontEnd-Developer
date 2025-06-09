@@ -1,0 +1,16 @@
+.main-header {
+    background-color: var(--color-white);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: center;
+}
+
+.main-header__container {
+    max-width: 1200px;
+    width: 100%;
+}
+
+.main-header__logo {
+    height: 100px;
+    display: block;
+}
