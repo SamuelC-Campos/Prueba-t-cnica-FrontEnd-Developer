@@ -72,4 +72,12 @@
       </div>
     </main>
   </div>
+  @if (isLoading) {
+  <div class="loading-overlay">
+    <div class="spinner-container">
+      <div class="spinner"></div>
+      <p class="loading-text">Cargando equipo Pokémon...</p>
+    </div>
+  </div>
+  }
 </div>

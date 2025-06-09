@@ -1,0 +1,396 @@
+/* src/app/pokemon-summary/pokemon-summary.css */
+
+/* === Estilos Generales de la Página === */
+.pokemon-summary-page {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f9fafa;
+  min-height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* === Sección de Introducción === */
+.intro-section {
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 2rem;
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.intro-section__back-wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.intro-section__text {
+  flex-grow: 1;
+}
+
+.intro-section__title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-blue, #1f2937);
+}
+
+/* === Contenedor Principal de Contenido === */
+.main-content-wrapper {
+  display: flex;
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  flex-grow: 1;
+  justify-content: center;
+  justify-items: center;
+  /* position: relative; */
+}
+
+/* === Columna del Perfil del Entrenador === */
+.trainer-profile-summary {
+  flex: 0 0 280px;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-card {
+  width: 100%;
+  background: var(--color-primary-yellow, #ffd700);
+  border-radius: 1.5rem;
+  padding: 2rem 1.5rem;
+  color: #2d2d2d;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card__title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: var(--color-text-dark, #1a202c);
+}
+
+.profile-image-container {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border: 4px solid #ffffff;
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.default-profile-icon {
+  font-size: 80px;
+  color: var(--color-text-medium, #a0aec0);
+}
+
+.profile-detail {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-dark, #2d2d2d);
+}
+
+.profile-detail strong {
+  font-weight: 600;
+}
+
+/* === Columna Principal del Resumen de Pokémon === */
+.pokemon-summary-main {
+  flex: 1;
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  max-height: 600px; /* Altura máxima para forzar el scroll */
+}
+
+.summary-block__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text-blue, #1f2937);
+  margin-bottom: 0.5rem;
+}
+
+.summary-block__subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-medium, #6b7280);
+  margin-bottom: 1.5rem;
+}
+
+/* === Contenedor de la Lista de Pokémon === */
+.pokemon-summary-grid-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  width: 70%;
+}
+
+.pokemon-summary-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* === Estilo de cada Tarjeta de Pokémon === */
+.pokemon-summary-card {
+  background-color: #f8fafc;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s ease;
+  min-height: 140px;
+}
+
+.pokemon-summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* === Imagen del Pokémon === */
+.pokemon-summary-image-wrapper {
+  width: 200px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.pokemon-summary-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* === Detalles del Pokémon === */
+.pokemon-summary-details {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 120px;
+}
+
+.pokemon-summary-id {
+  font-size: 0.9rem;
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.pokemon-summary-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-dark, #1f2937);
+  text-transform: capitalize;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* === Tipos de Pokémon === */
+.pokemon-summary-types {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 0.5rem 0;
+}
+
+.pokemon-summary-type {
+  padding: 0.4rem 0.8rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-transform: capitalize;
+  background-color: #a8a878;
+  line-height: 1;
+}
+
+/* Colores específicos para los tipos */
+.pokemon-summary-type.normal { background-color: #a8a878; }
+.pokemon-summary-type.fire { background-color: #f08030; }
+.pokemon-summary-type.water { background-color: #6890f0; }
+.pokemon-summary-type.grass { background-color: #78c850; }
+.pokemon-summary-type.electric { background-color: #f8d030; }
+.pokemon-summary-type.ice { background-color: #98d8d8; }
+.pokemon-summary-type.fighting { background-color: #c03028; }
+.pokemon-summary-type.poison { background-color: #a040a0; }
+.pokemon-summary-type.ground { background-color: #e0c068; }
+.pokemon-summary-type.flying { background-color: #a890f0; }
+.pokemon-summary-type.psychic { background-color: #f85888; }
+.pokemon-summary-type.bug { background-color: #a8b820; }
+.pokemon-summary-type.rock { background-color: #b8a038; }
+.pokemon-summary-type.ghost { background-color: #705898; }
+.pokemon-summary-type.dragon { background-color: #7038f8; }
+.pokemon-summary-type.steel { background-color: #b8b8d0; }
+.pokemon-summary-type.dark { background-color: #705848; }
+.pokemon-summary-type.fairy { background-color: #ee99ac; }
+
+/* === Estadísticas del Pokémon === */
+.pokemon-summary-stats {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-left: 1rem;
+  min-width: 200px;
+}
+
+.pokemon-summary-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.pokemon-summary-stat-name {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #6b7280;
+  min-width: 60px;
+  text-align: left;
+}
+
+.pokemon-summary-stat-bar-container {
+  flex: 1;
+  height: 8px;
+  background-color: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pokemon-summary-stat-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Colores para diferentes tipos de estadísticas */
+.pokemon-summary-stat-bar.hp { background-color: #10b981; }
+.pokemon-summary-stat-bar.attack { background-color: #f59e0b; }
+.pokemon-summary-stat-bar.defense { background-color: #10b981; }
+.pokemon-summary-stat-bar.special-attack { background-color: #f59e0b; }
+.pokemon-summary-stat-bar.special-defense { background-color: #10b981; }
+.pokemon-summary-stat-bar.speed { background-color: #10b981; }
+
+
+/* === Scrollbar personalizada === */
+.pokemon-summary-grid-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pokemon-summary-grid-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.pokemon-summary-grid-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.pokemon-summary-grid-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* === Media Queries === */
+@media (max-width: 1024px) {
+  .main-content-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .summary-actions {
+    position: static;
+    margin-top: 2rem;
+    width: 100%;
+  }
+
+  .trainer-profile-summary {
+    max-width: 400px;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .pokemon-summary-main {
+    width: 100%;
+    max-height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pokemon-summary-page {
+    padding: 1rem;
+  }
+
+  .intro-section {
+    padding: 1rem;
+  }
+
+  .intro-section__title {
+    font-size: 1.6rem;
+  }
+
+  .summary-actions {
+    position: static;
+    margin-top: 1rem;
+  }
+
+  .pokemon-summary-main {
+    padding: 1.5rem;
+    max-height: 400px;
+  }
+
+  .summary-block__title {
+    font-size: 1.7rem;
+  }
+
+  .pokemon-summary-card {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .pokemon-summary-image-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+
+  .pokemon-summary-name {
+    font-size: 1.2rem;
+  }
+
+  .pokemon-summary-stats {
+    margin-left: 0.5rem;
+    min-width: 150px;
+  }
+}

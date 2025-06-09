@@ -3,15 +3,9 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TrainerProfileService, TrainerProfile } from '../services/trainer-profile';
+import { PokemonService, Pokemon, PokemonType, PokemonStat } from '../services/pokemon-sumary';
 import { FormsModule } from '@angular/forms';
-
-interface Pokemon {
-  name: string;
-  url: string;
-  id: number;
-  imageUrl: string;
-  isSelected: boolean;
-}
+import { forkJoin, map, switchMap, tap, of } from 'rxjs'; // 'of' es para el caso de lista vacía
 
 @Component({
   selector: 'app-pokemon-selection',
@@ -30,11 +24,14 @@ export class PokemonSelection implements OnInit {
   trainerProfile: TrainerProfile | null = null;
   searchQuery: string = '';
 
+  isLoading: boolean = false;
+
   // Inyectamos HttpClient, Router y TrainerProfileService
   constructor(
     private http: HttpClient,
     private router: Router,
-    private trainerProfileService: TrainerProfileService
+    private trainerProfileService: TrainerProfileService,
+    private pokemonService: PokemonService
   ) { }
 
   ngOnInit(): void {
@@ -55,28 +52,69 @@ export class PokemonSelection implements OnInit {
   }
 
   loadPokemon(): void {
-    const limit = 125; // numbers de pokemons
-    this.http.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`).subscribe({
-      next: (response: any) => {
-        this.pokemonList = response.results.map((pokemon: any) => {
-          const id = this.extractPokemonId(pokemon.url);
-          return {
-            name: pokemon.name,
-            url: pokemon.url,
-            id: id,
-            imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`, // URL de la imagen del sprite
-            isSelected: false
-          };
-        });
-        // Initializes the filtered list with all the Pokémon loaded.
-        this.filteredPokemonList = [...this.pokemonList];
-        console.log('Pokémon cargados:', this.pokemonList);
-      },
-      error: (error) => {
-        console.error('Error al cargar Pokémon:', error);
+  const limit = 125; // Número de Pokémon a cargar inicialmente
+
+  this.http.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`).pipe(
+    // Paso 1: Mapear la respuesta inicial para obtener una lista básica de Pokémon
+    map((response: any) => response.results.map((pokemon: any) => {
+      const id = this.extractPokemonId(pokemon.url);
+      return {
+        name: pokemon.name,
+        url: pokemon.url, // Necesitamos esta URL para la segunda llamada de detalle
+        id: id,
+        imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
+        isSelected: false,
+        types: [], // Inicializamos vacíos, se llenarán en el siguiente paso
+        stats: []  // Inicializamos vacíos, se llenarán en el siguiente paso
+      };
+    })),
+    // Paso 2: Usar switchMap para hacer una nueva serie de llamadas HTTP para cada Pokémon.
+    // switchMap es útil aquí porque si se llama a loadPokemon() varias veces rápidamente,
+    // cancela las solicitudes anteriores y solo procesa la última.
+    switchMap((basicPokemonList: Pokemon[]) => {
+      if (basicPokemonList.length === 0) {
+        return of([]); // Retorna un Observable que emite un array vacío si no hay Pokémon
       }
-    });
-  }
+
+      // Creamos un array de Observables, uno por cada llamada de detalle de Pokémon
+      const detailRequests = basicPokemonList.map(pokemon =>
+        this.http.get(pokemon.url).pipe(
+          map((detailResponse: any) => {
+            // Mapeamos las estadísticas del formato de PokeAPI a tu interfaz PokemonStat
+            const stats: PokemonStat[] = detailResponse.stats.map((statEntry: any) => ({
+              name: statEntry.stat.name,
+              value: statEntry.base_stat // ¡Aquí asignamos 'base_stat' a 'value'!
+            }));
+
+            // Mapeamos los tipos del formato de PokeAPI a tu interfaz PokemonType
+            const types: PokemonType[] = detailResponse.types.map((typeEntry: any) => ({
+              name: typeEntry.type.name
+            }));
+
+            return {
+              ...pokemon, // Mantiene las propiedades básicas que ya teníamos (id, name, imageUrl, etc.)
+              types: types, // Asigna los tipos obtenidos
+              stats: stats  // Asigna las estadísticas obtenidas
+            };
+          })
+        )
+      );
+      // forkJoin espera a que TODOS los Observables dentro del array 'detailRequests' se completen
+      // y luego emite un único array con todos los Pokémon ya con sus detalles.
+      return forkJoin(detailRequests);
+    }),
+    // Paso 3: Una vez que todos los detalles se han cargado, actualizamos las listas del componente.
+    tap((detailedPokemonList: Pokemon[]) => {
+      this.pokemonList = detailedPokemonList;
+      this.filteredPokemonList = [...this.pokemonList]; // Inicializa la lista filtrada
+      console.log('Pokémon cargados con detalles:', this.pokemonList);
+    })
+  ).subscribe({
+    error: (error) => {
+      console.error('Error al cargar Pokémon con detalles:', error);
+    }
+  });
+}
 
   // Small function to extract the Pokémon's ID from its URL
   private extractPokemonId(url: string): number {
@@ -84,7 +122,7 @@ export class PokemonSelection implements OnInit {
     return parseInt(parts[parts.length - 2]);
   }
 
-  // <-- NEW METHOD! Filter the list of Pokémon
+  // Filter the list of Pokémon
   filterPokemon(): void {
     const query = this.searchQuery.toLowerCase().trim();
     if (!query) {
@@ -130,9 +168,21 @@ export class PokemonSelection implements OnInit {
   // Method for handling the click on the “Continue” button.
   onContinue(): void {
     if (this.isContinueButtonEnabled) {
-      console.log('Selección de Pokémon completa. Navegando a la siguiente página...');
-      alert('¡Pokémon seleccionados con éxito! (Navegación pendiente)');
-      // this.router.navigate(['/resumen-seleccion']);
+      // 1. Mostrar la pantalla de carga estableciendo isLoading a true
+      this.isLoading = true;
+
+      // 2. Guardar los Pokémon seleccionados en el servicio
+      this.pokemonService.saveSelectedPokemon(this.selectedPokemon);
+      this.router.navigate(['/loading']);
+      // 3. Usar setTimeout para simular un retardo de carga antes de navegar
+      setTimeout(() => {
+        this.router.navigate(['/pokemon-summary']);
+        // No es necesario poner isLoading = false aquí, ya que el componente
+        // se destruirá al navegar a la nueva ruta.
+      }, 2000); // Retardo de 2 segundos (ajusta este valor si lo deseas)
     }
+  }
+  goBack(): void {
+    this.router.navigate(['/trainer-profile-setup']); // Ajusta esta ruta a tu componente anterior
   }
 }
