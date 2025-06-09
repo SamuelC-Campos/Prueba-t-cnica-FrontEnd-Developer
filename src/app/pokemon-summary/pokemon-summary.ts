@@ -1,14 +1,13 @@
-// pokemon-summary.component.ts
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Importa CommonModule
-import { TrainerProfileService, TrainerProfile } from '../services/trainer-profile'; // Ajusta la ruta a tu servicio
-import { PokemonService, Pokemon } from '../services/pokemon-sumary'; // Ajusta la ruta a tu servicio
-import { Router } from '@angular/router'; // Importa Router para la navegación
+import { CommonModule } from '@angular/common';
+import { TrainerProfileService, TrainerProfile } from '../services/trainer-profile';
+import { PokemonService, Pokemon } from '../services/pokemon-sumary';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pokemon-summary',
   standalone: true,
-  imports: [CommonModule], // Asegúrate de importar CommonModule para @if y @for
+  imports: [CommonModule],
   templateUrl: './pokemon-summary.html',
   styleUrl: './pokemon-summary.css'
 })
@@ -24,28 +23,34 @@ export class PokemonSummaryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Obtener el perfil del entrenador
+    // Obtain the trainer's profile
     this.trainerProfile = this.trainerProfileService.getProfile();
 
-    // Obtener los Pokémon seleccionados
-    // NOTA: Asumo que tienes un método en PokemonService para obtener los seleccionados
-    // Si no, necesitarás pasar los IDs a través de la ruta o un servicio compartido
+    // Obtain the selected Pokémon
     this.selectedPokemonList = this.pokemonService.getSelectedPokemon();
 
-    // Si no hay perfil o Pokémon seleccionados, podrías redirigir de vuelta
+    // If there is no profile or Pokémon selected, you could redirect back
     if (!this.trainerProfile || this.selectedPokemonList.length === 0) {
       // this.router.navigate(['/pokemon-selection']); // Redirige si no hay datos
     }
   }
 
   goBack(): void {
-    this.router.navigate(['/pokemon-selection']); // Vuelve a la pantalla anterior
+    this.router.navigate(['/pokemon-selection']); // Returns to the previous screen
   }
 
-  confirmTeam(): void {
-    // Lógica para confirmar el equipo (ej. enviar a un backend, mostrar mensaje)
-    console.log('Equipo confirmado:', this.selectedPokemonList);
-    // Podrías redirigir a una página de éxito o al home
-    // this.router.navigate(['/success']);
+  // Nuevos métodos para navegación
+  editProfile(): void {
+      this.router.navigate(['/loading']);
+      setTimeout(() => {
+        this.router.navigate(['/profile-setup']);
+      }, 2000);
+  }
+
+  editPokemon(): void {
+    this.router.navigate(['/loading']);
+      setTimeout(() => {
+        this.router.navigate(['/pokemon-selection']);
+      }, 2000);
   }
 }

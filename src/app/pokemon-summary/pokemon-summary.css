@@ -1,153 +1,218 @@
-/* src/app/pokemon-summary/pokemon-summary.css */
+:root {
+  --color-card-background: #F8FAFC;
+  --color-background: #FFFFFF;
+  --color-border: #e2e8f0;
+}
 
-/* === Estilos Generales de la Página === */
-.pokemon-summary-page {
-  font-family: 'Poppins', sans-serif;
+/* === General Page Styles === */
+.pokemon-selection-page {
+  font-family: 'Inter', 'Roboto', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f9fafa;
+  background-color: var(--color-background);
   min-height: 100vh;
   padding: 2rem;
   box-sizing: border-box;
 }
 
-/* === Sección de Introducción === */
+/* === Introduction Section === */
 .intro-section {
   width: 100%;
   max-width: 1200px;
   margin-bottom: 2rem;
-  background-color: #ffffff;
-  border-radius: 1.5rem;
-  padding: 1.5rem 2rem;
-  display: flex;
-  align-items: center;
+  padding: 1.5rem 0;
 }
 
 .intro-section__back-wrapper {
   display: flex;
   align-items: center;
-  margin-right: 20px;
+  justify-content: space-between;
 }
 
 .intro-section__text {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
   flex-grow: 1;
 }
 
 .intro-section__title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: var(--color-text-blue, #1f2937);
+  font-family: 'Georgia', 'Merriweather', serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin: 0;
+  color: var(--color-text-blue);
 }
 
-/* === Contenedor Principal de Contenido === */
+.edit-profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  border: 2px solid var(--color-text-blue);
+  border-radius: 8px;
+  color: var(--color-text-blue);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-profile-btn:hover {
+  background-color: var(--color-text-blue);
+  color: white;
+}
+
+.edit-profile-btn .material-icons {
+  font-size: 18px;
+}
+
+/* === Main Content Container === */
 .main-content-wrapper {
   display: flex;
-  gap: 2rem;
+  gap: 4rem;
   max-width: 1200px;
   width: 100%;
   flex-grow: 1;
-  justify-content: center;
-  justify-items: center;
-  /* position: relative; */
+  align-items: flex-start;
 }
 
-/* === Columna del Perfil del Entrenador === */
+/* === Trainer's Profile Column === */
 .trainer-profile-summary {
-  flex: 0 0 280px;
-  max-width: 280px;
+  flex: 0 0 300px;
+  max-width: 300px;
+}
+
+.profile-card-header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 1.5rem;
 }
 
 .profile-card {
-  width: 100%;
-  background: var(--color-primary-yellow, #ffd700);
-  border-radius: 1.5rem;
-  padding: 2rem 1.5rem;
-  color: #2d2d2d;
+  width: 255px;
+  background-color: var(--color-primary-yellow);
+  border-radius: 25px;
+  padding: 2.5rem 2rem;
   text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  position: relative;
+  min-height: 450px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
 }
 
 .profile-card__title {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  /* font-weight: bold; */
+  font-size: 1.25rem;
+  font-weight: 600;
   margin-bottom: 1.5rem;
-  color: var(--color-text-dark, #1a202c);
+  color: var(--color-text-medium);
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.profile-card__logro-icon {
+  width: 55px;
+  height: auto;
 }
 
 .profile-image-container {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background-color: #ffffff;
+  margin: 1rem 0 2rem 0;
   display: flex;
   justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  border: 4px solid #ffffff;
-  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1.5rem;
+  position: relative;
 }
 
 .profile-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
+  border: 6px solid var(--color-white);
+  object-fit: cover;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .default-profile-icon {
-  font-size: 80px;
-  color: var(--color-text-medium, #a0aec0);
+  font-size: 200px;
+  color: var(--color-white);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .profile-detail {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-  color: var(--color-text-dark, #2d2d2d);
+  color: var(--color-text-medium);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  /* margin: 1rem 0; */
+  text-align: left;
+  /* padding: 10px */
 }
 
 .profile-detail strong {
   font-weight: 600;
+  display: inline-block;
+  width: 100px;
+  padding-right: 10px;
 }
 
-/* === Columna Principal del Resumen de Pokémon === */
+/* === Main Column of the Pokémon Summary === */
 .pokemon-summary-main {
   flex: 1;
-  background-color: #ffffff;
-  border-radius: 1.5rem;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
-  max-height: 600px; /* Altura máxima para forzar el scroll */
+  margin: 0px 25px 0px 50px;
+}
+
+.pokemon-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
 .summary-block__title {
+  font-family: 'Georgia', 'Merriweather', serif;
   font-size: 2rem;
-  font-weight: 700;
-  color: var(--color-text-blue, #1f2937);
-  margin-bottom: 0.5rem;
+  font-weight: 400;
+  color: var(--color-text-blue);
+  margin: 0;
 }
 
-.summary-block__subtitle {
-  font-size: 1.1rem;
-  color: var(--color-text-medium, #6b7280);
-  margin-bottom: 1.5rem;
+.edit-pokemon-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  border: 2px solid var(--color-text-blue);
+  border-radius: 8px;
+  color: var(--color-text-blue);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-/* === Contenedor de la Lista de Pokémon === */
+.edit-pokemon-btn:hover {
+  background-color: var(--color-text-blue);
+  color: white;
+}
+
+.edit-pokemon-btn .material-icons {
+  font-size: 18px;
+}
+
+/* === Pokémon List Container === */
 .pokemon-summary-grid-container {
   flex-grow: 1;
+  max-height: 475px;
   overflow-y: auto;
-  padding-right: 0.5rem;
-  width: 70%;
 }
 
 .pokemon-summary-grid {
@@ -156,76 +221,69 @@
   gap: 1.5rem;
 }
 
-/* === Estilo de cada Tarjeta de Pokémon === */
+/* === Style of each Pokémon card === */
 .pokemon-summary-card {
-  background-color: #f8fafc;
-  border-radius: 1rem;
+  background-color: var(--color-card-background);
+  border-radius: 12px;
   padding: 1.5rem;
   display: flex;
   align-items: flex-start;
-  gap: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e2e8f0;
-  transition: transform 0.2s ease;
-  min-height: 140px;
+  gap: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--color-border);
+  min-height: 180px;
+  width: 80%;
 }
 
-.pokemon-summary-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+/* === Left side of the Pokémon === */
+.pokemon-summary-left {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 150px;
+  width: 40%;
 }
 
-/* === Imagen del Pokémon === */
+/* === Image of the Pokémon === */
 .pokemon-summary-image-wrapper {
-  width: 200px;
-  height: auto;
+  width: 135px;
+  height: 135px;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
+  margin-bottom: 1rem;
 }
 
 .pokemon-summary-image {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: contain;
 }
 
-/* === Detalles del Pokémon === */
-.pokemon-summary-details {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  min-width: 120px;
-}
-
-.pokemon-summary-id {
-  font-size: 0.9rem;
-  color: #3b82f6;
-  font-weight: 600;
-}
-
+/* === ID and Name of the Pokémon === */
 .pokemon-summary-name {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--color-text-dark, #1f2937);
+  font-family: 'Georgia', 'Merriweather', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
   text-transform: capitalize;
-  margin: 0;
+  margin: 0 0 1rem 0;
   line-height: 1.2;
 }
 
-/* === Tipos de Pokémon === */
+/* === Types of Pokémon === */
 .pokemon-summary-types {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  margin: 0.5rem 0;
+  justify-content: center;
 }
 
 .pokemon-summary-type {
   padding: 0.4rem 0.8rem;
-  border-radius: 1rem;
+  border-radius: 12px;
   font-size: 0.75rem;
   font-weight: 600;
   color: #ffffff;
@@ -234,49 +292,100 @@
   line-height: 1;
 }
 
-/* Colores específicos para los tipos */
-.pokemon-summary-type.normal { background-color: #a8a878; }
-.pokemon-summary-type.fire { background-color: #f08030; }
-.pokemon-summary-type.water { background-color: #6890f0; }
-.pokemon-summary-type.grass { background-color: #78c850; }
-.pokemon-summary-type.electric { background-color: #f8d030; }
-.pokemon-summary-type.ice { background-color: #98d8d8; }
-.pokemon-summary-type.fighting { background-color: #c03028; }
-.pokemon-summary-type.poison { background-color: #a040a0; }
-.pokemon-summary-type.ground { background-color: #e0c068; }
-.pokemon-summary-type.flying { background-color: #a890f0; }
-.pokemon-summary-type.psychic { background-color: #f85888; }
-.pokemon-summary-type.bug { background-color: #a8b820; }
-.pokemon-summary-type.rock { background-color: #b8a038; }
-.pokemon-summary-type.ghost { background-color: #705898; }
-.pokemon-summary-type.dragon { background-color: #7038f8; }
-.pokemon-summary-type.steel { background-color: #b8b8d0; }
-.pokemon-summary-type.dark { background-color: #705848; }
-.pokemon-summary-type.fairy { background-color: #ee99ac; }
+/* Specific colors for types */
+.pokemon-summary-type.normal {
+  background-color: #a8a878;
+}
 
-/* === Estadísticas del Pokémon === */
+.pokemon-summary-type.fire {
+  background-color: #f08030;
+}
+
+.pokemon-summary-type.water {
+  background-color: #6890f0;
+}
+
+.pokemon-summary-type.grass {
+  background-color: #78c850;
+}
+
+.pokemon-summary-type.electric {
+  background-color: #f8d030;
+}
+
+.pokemon-summary-type.ice {
+  background-color: #98d8d8;
+}
+
+.pokemon-summary-type.fighting {
+  background-color: #c03028;
+}
+
+.pokemon-summary-type.poison {
+  background-color: #a040a0;
+}
+
+.pokemon-summary-type.ground {
+  background-color: #e0c068;
+}
+
+.pokemon-summary-type.flying {
+  background-color: #a890f0;
+}
+
+.pokemon-summary-type.psychic {
+  background-color: #f85888;
+}
+
+.pokemon-summary-type.bug {
+  background-color: #a8b820;
+}
+
+.pokemon-summary-type.rock {
+  background-color: #b8a038;
+}
+
+.pokemon-summary-type.ghost {
+  background-color: #705898;
+}
+
+.pokemon-summary-type.dragon {
+  background-color: #7038f8;
+}
+
+.pokemon-summary-type.steel {
+  background-color: #b8b8d0;
+}
+
+.pokemon-summary-type.dark {
+  background-color: #705848;
+}
+
+.pokemon-summary-type.fairy {
+  background-color: #ee99ac;
+}
+
+/* === Pokémon statistics === */
 .pokemon-summary-stats {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-left: 1rem;
-  min-width: 200px;
+  gap: 1rem;
+  justify-content: center;
+  min-width: 250px;
 }
 
 .pokemon-summary-stat-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
+  gap: 1rem;
 }
 
 .pokemon-summary-stat-name {
   font-weight: 600;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  color: #6b7280;
-  min-width: 60px;
+  font-size: 0.8rem;
+  color: var(--color-text-medium);
+  min-width: 100px;
   text-align: left;
 }
 
@@ -295,16 +404,40 @@
   transition: width 0.3s ease;
 }
 
-/* Colores para diferentes tipos de estadísticas */
-.pokemon-summary-stat-bar.hp { background-color: #10b981; }
-.pokemon-summary-stat-bar.attack { background-color: #f59e0b; }
-.pokemon-summary-stat-bar.defense { background-color: #10b981; }
-.pokemon-summary-stat-bar.special-attack { background-color: #f59e0b; }
-.pokemon-summary-stat-bar.special-defense { background-color: #10b981; }
-.pokemon-summary-stat-bar.speed { background-color: #10b981; }
+/* Colors for different types of statistics */
+.pokemon-summary-stat-bar.hp {
+  background-color: #10b981;
+}
 
+.pokemon-summary-stat-bar.attack {
+  background-color: #f59e0b;
+}
 
-/* === Scrollbar personalizada === */
+.pokemon-summary-stat-bar.defense {
+  background-color: #3b82f6;
+}
+
+.pokemon-summary-stat-bar.special-attack {
+  background-color: #f59e0b;
+}
+
+.pokemon-summary-stat-bar.special-defense {
+  background-color: #3b82f6;
+}
+
+.pokemon-summary-stat-bar.speed {
+  background-color: #8b5cf6;
+}
+
+/* === Loading text === */
+.loading-text {
+  color: var(--color-text-medium);
+  text-align: center;
+  font-style: italic;
+  padding: 2rem;
+}
+
+/* === Custom Scrollbar === */
 .pokemon-summary-grid-container::-webkit-scrollbar {
   width: 6px;
 }
@@ -328,69 +461,47 @@
   .main-content-wrapper {
     flex-direction: column;
     align-items: center;
-  }
-
-  .summary-actions {
-    position: static;
-    margin-top: 2rem;
-    width: 100%;
+    gap: 2rem;
   }
 
   .trainer-profile-summary {
     max-width: 400px;
     width: 100%;
-    margin-bottom: 2rem;
   }
 
   .pokemon-summary-main {
     width: 100%;
-    max-height: 500px;
+  }
+
+  .intro-section__text {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
 }
 
 @media (max-width: 768px) {
-  .pokemon-summary-page {
-    padding: 1rem;
-  }
-
-  .intro-section {
+  .pokemon-selection-page {
     padding: 1rem;
   }
 
   .intro-section__title {
-    font-size: 1.6rem;
-  }
-
-  .summary-actions {
-    position: static;
-    margin-top: 1rem;
-  }
-
-  .pokemon-summary-main {
-    padding: 1.5rem;
-    max-height: 400px;
-  }
-
-  .summary-block__title {
-    font-size: 1.7rem;
+    font-size: 2rem;
   }
 
   .pokemon-summary-card {
-    padding: 1rem;
-    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
-  .pokemon-summary-image-wrapper {
-    width: 60px;
-    height: 60px;
-  }
-
-  .pokemon-summary-name {
-    font-size: 1.2rem;
+  .pokemon-summary-left {
+    margin-bottom: 1rem;
+    min-width: auto;
   }
 
   .pokemon-summary-stats {
-    margin-left: 0.5rem;
-    min-width: 150px;
+    min-width: auto;
+    width: 100%;
   }
 }

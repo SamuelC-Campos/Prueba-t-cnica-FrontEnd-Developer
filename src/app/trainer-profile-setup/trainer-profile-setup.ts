@@ -3,11 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TrainerProfileService, TrainerProfile } from '../services/trainer-profile';
+import { DuiMaskDirective } from '../directives/dui-mask';
 
 @Component({
   selector: 'app-trainer-profile-setup',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, DuiMaskDirective ],
   templateUrl: './trainer-profile-setup.html',
   styleUrl: './trainer-profile-setup.css'
 })
@@ -110,9 +111,6 @@ export class TrainerProfileSetupComponent implements OnInit {
         return false;
       }
     }
-    // If you are a minor, the minor card is not required, so we don't need a ‘return false’ here.
-
-    // If all the above validations pass, the form is valid.
     return true;
   }
 
